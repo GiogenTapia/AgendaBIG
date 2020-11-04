@@ -1,0 +1,2 @@
+# AgendaBIG
+Proyecto final de movil, en el cual se tendra que realizar una aplicacion que sirva como agenda al usuario.
