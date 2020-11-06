@@ -2,7 +2,10 @@ package com.giogen.agendabig.ObjetosYDaos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 public class DaoFicha {
 
@@ -39,4 +42,42 @@ public class DaoFicha {
             return false;
         }
     }
+
+    //Metodo para seleccionar todos los archivos
+    public ArrayList<Ficha> SeleccionarTodos(){
+        ArrayList<Ficha>lista=new ArrayList<Ficha>();
+        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,null,null,null,null,null);
+        while(c.moveToNext()){
+            lista.add(new Ficha(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
+                    ,c.getString(4),c.getString(5)));
+        }
+        return lista;
+    }
+
+
+    //Metodo para seleccionar los archivos por medio del titulo
+    public ArrayList<Ficha>  SeleccionarTodos(String titulo){
+        ArrayList<Ficha>lista=new ArrayList<Ficha>();
+        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,"titulo like '%"+titulo+"%'",null,null,null,null);
+        while(c.moveToNext()){
+            lista.add(new Ficha(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
+                    ,c.getString(4),c.getString(5)));
+        }
+        return lista;
+    }
+
+    //Metodo para seleccionar una ficha por medio del titulo
+    public Ficha seleccionarFicha(String titulo){
+        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{titulo},null,null,null);
+        Ficha fi=null;
+        while(c.moveToNext()){
+            fi=new Ficha(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
+                    ,c.getString(4),c.getString(5));
+        }
+        return fi;
+    }
+
+
+
+
 }
