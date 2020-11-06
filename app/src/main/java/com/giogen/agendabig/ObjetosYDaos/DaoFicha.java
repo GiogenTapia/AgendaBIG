@@ -77,6 +77,20 @@ public class DaoFicha {
         return fi;
     }
 
+    public boolean actualizar(Ficha ficha){
+        ContentValues cnt=new ContentValues();
+        cnt.put(BaseDeDatos.FICHACOLUMNS[1],ficha.getDescripcion());
+        cnt.put(BaseDeDatos.FICHACOLUMNS[2],ficha.getTipo());
+        cnt.put(BaseDeDatos.FICHACOLUMNS[3],ficha.getFechacreacion());
+        cnt.put(BaseDeDatos.FICHACOLUMNS[4],ficha.getFechaRecordatorio());
+        cnt.put(BaseDeDatos.FICHACOLUMNS[5],ficha.getEstado());
+        long no=bd.update(BaseDeDatos.FICHA,cnt,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{ficha.getTitulo()});
+        if(no>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 
