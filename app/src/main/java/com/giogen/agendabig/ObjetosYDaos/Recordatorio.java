@@ -10,7 +10,9 @@ public class Recordatorio {
     private int hora;
     private int minuto;
     private String titulo;
+public Recordatorio(){
 
+}
     public Recordatorio(int id, int dia, int mes, int anio, int hora, int minuto, String titulo) {
         this.id = id;
         this.dia = dia;
