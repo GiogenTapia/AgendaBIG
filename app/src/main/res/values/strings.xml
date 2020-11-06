@@ -1,32 +1,32 @@
 <resources>
-    <string name="app_name">Agenda</string>
-    <string name="txtBjscar">Buscar</string>
-    <string name="btnAgregar">Agregar</string>
-    <string name="lblTitulo">Titulo</string>
-    <string name="lblDescripcion">Descripción</string>
-    <string name="rdTarea">Tarea</string>
-    <string name="rdNota">Nota</string>
-    <string name="btnFechaAlarma">Seleccionar Fecha y Hora</string>
-    <string name="lblArchivos">Archivos</string>
-    <string name="btnArchivos">Adjuntar Archivos</string>
-    <string name="btnGuardar">Guardar</string>
-    <string name="itmAgregar">Agregar</string>
-    <string name="itmAcercaDe">Acerca de</string>
-    <string name="itmModificar">Modificar1</string>
-    <string name="itmEliminar">Eliminar1</string>
-    <string name="btnReproducir">Reproducir</string>
-    <string name="btnPausar">Pausa</string>
+    <string name="app_name" translatable="false">Agenda</string>
+    <string name="txtBjscar" translatable="false">Buscar</string>
+    <string name="btnAgregar" translatable="false">Agregar</string>
+    <string name="lblTitulo" translatable="false">Titulo</string>
+    <string name="lblDescripcion" translatable="false">Descripción</string>
+    <string name="rdTarea" translatable="false">Tarea</string>
+    <string name="rdNota" translatable="false">Nota</string>
+    <string name="btnFechaAlarma" translatable="false">Seleccionar Fecha y Hora</string>
+    <string name="lblArchivos" translatable="false">Archivos</string>
+    <string name="btnArchivos" translatable="false">Adjuntar Archivos</string>
+    <string name="btnGuardar" translatable="false">Guardar</string>
+    <string name="itmAgregar" translatable="false">Agregar</string>
+    <string name="itmAcercaDe" translatable="false">Acerca de</string>
+    <string name="itmModificar" translatable="false">Modificar1</string>
+    <string name="itmEliminar" translatable="false">Eliminar1</string>
+    <string name="btnReproducir" translatable="false">Reproducir</string>
+    <string name="btnPausar" translatable="false">Pausa</string>
 
-    <string name="terminacion">Terminacion</string>
-    <string name="agregarRecordatorio">Agregar Recordatorio</string>
-    <string name="verRecordatorios">Ver Recordatorio</string>
-    <string name="audio">Grabar audio</string>
-    <string name="video">Grabar video</string>
-    <string name="foto">Tomar foto</string>
-    <string name="archivo">Seleccionar un archivo</string>
+    <string name="terminacion" translatable="false">Terminacion</string>
+    <string name="agregarRecordatorio" translatable="false">Agregar Recordatorio</string>
+    <string name="verRecordatorios" translatable="false">Ver Recordatorio</string>
+    <string name="audio" translatable="false">Grabar audio</string>
+    <string name="video" translatable="false">Grabar video</string>
+    <string name="foto" translatable="false">Tomar foto</string>
+    <string name="archivo" translatable="false">Seleccionar un archivo</string>
 
-    <string name="eliminar">Eliminar</string>
-    <string name="modificar">Actualizar</string>
-    <string name="ver">Ver</string>
-    <string name="marcar">Marcar como terminado</string>
+    <string name="eliminar" translatable="false">Eliminar</string>
+    <string name="modificar" translatable="false">Actualizar</string>
+    <string name="ver" translatable="false">Ver</string>
+    <string name="marcar" translatable="false">Marcar como terminado</string>
 </resources>
