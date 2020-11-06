@@ -78,6 +78,12 @@ public Recordatorio(){
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    @Override
+    public String toString() {
+        return (this.dia+"-"+this.mes+"-"+this.anio+"-"+this.hora+":"+this.minuto);
+    }
+
     public long milis(){
         Calendar fechaActual=Calendar.getInstance();
         long millis=0;
