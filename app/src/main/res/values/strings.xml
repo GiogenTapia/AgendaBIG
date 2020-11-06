@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">AgendaBIG</string>
+    <string name="app_name">Agenda</string>
+    <string name="txtBjscar">Buscar</string>
+    <string name="btnAgregar">Agregar</string>
+    <string name="lblTitulo">Titulo</string>
+    <string name="lblDescripcion">Descripción</string>
+    <string name="rdTarea">Tarea</string>
+    <string name="rdNota">Nota</string>
+    <string name="btnFechaAlarma">Seleccionar Fecha y Hora</string>
+    <string name="lblArchivos">Archivos</string>
+    <string name="btnArchivos">Adjuntar Archivos</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="itmAgregar">Agregar</string>
+    <string name="itmAcercaDe">Acerca de</string>
+    <string name="itmModificar">Modificar1</string>
+    <string name="itmEliminar">Eliminar1</string>
+    <string name="btnReproducir">Reproducir</string>
+    <string name="btnPausar">Pausa</string>
+
+    <string name="terminacion">Terminacion</string>
+    <string name="agregarRecordatorio">Agregar Recordatorio</string>
+    <string name="verRecordatorios">Ver Recordatorio</string>
+    <string name="audio">Grabar audio</string>
+    <string name="video">Grabar video</string>
+    <string name="foto">Tomar foto</string>
+    <string name="archivo">Seleccionar un archivo</string>
+
+    <string name="eliminar">Eliminar</string>
+    <string name="modificar">Actualizar</string>
+    <string name="ver">Ver</string>
+    <string name="marcar">Marcar como terminado</string>
 </resources>

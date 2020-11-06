@@ -14,5 +14,5 @@ import com.giogen.agendabig.ObjetosYDaos.Ficha;
 import java.util.ArrayList;
 public class mostrar extends AppCompatActivity {
 
-    
+
 }
