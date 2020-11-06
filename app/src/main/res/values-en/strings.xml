@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Agenda</string>
+    <string name="app_name">Agend</string>
+    <string name="txtBjscar" translatable="false">Search</string>
+    <string name="btnAgregar" translatable="false">Add</string>
+    <string name="lblTitulo" translatable="false">Title</string>
+    <string name="lblDescripcion" translatable="false">Description</string>
+    <string name="rdTarea" translatable="false">Task</string>
+    <string name="rdNota" translatable="false">Note</string>
+    <string name="btnFechaAlarma" translatable="false">Select day and time</string>
+    <string name="lblArchivos" translatable="false">Files</string>
+    <string name="btnArchivos" translatable="false">Add files</string>
+    <string name="btnGuardar" translatable="false">Save</string>
+    <string name="itmAgregar" translatable="false">Add</string>
+    <string name="itmAcercaDe" translatable="false">About</string>
+    <string name="itmModificar" translatable="false">EditEdit</string>
+    <string name="itmEliminar" translatable="false">Delete</string>
+    <string name="btnReproducir" translatable="false">Play</string>
+    <string name="btnPausar" translatable="false">Pause</string>
+    <string name="terminacion" translatable="false">Ending</string>
+    <string name="agregarRecordatorio" translatable="false">Add notification</string>
+    <string name="verRecordatorios" translatable="false">See notifications</string>
+    <string name="audio" translatable="false">Record audio</string>
+    <string name="video" translatable="false">Record video</string>
+    <string name="foto" translatable="false">Take picture</string>
+    <string name="archivo" translatable="false">Select files</string>
+    <string name="eliminar" translatable="false">Delete</string>
+    <string name="modificar" translatable="false">Edit</string>
+    <string name="marcar" translatable="false">Check as finished</string>
+    <string name="ver" translatable="false">see</string>
 </resources>
