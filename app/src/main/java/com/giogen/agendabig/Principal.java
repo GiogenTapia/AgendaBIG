@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import com.giogen.agendabig.R;
 import android.widget.Toast;
@@ -29,7 +28,6 @@ public class Principal extends AppCompatActivity {
     private ArrayList<Ficha> lista=new ArrayList<>();
     private RecyclerView recyclerView;
     private EditText txtBuscar;
-    private Button btnAgregar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +35,8 @@ public class Principal extends AppCompatActivity {
         recyclerView=findViewById(R.id.rcclrFicha);
         txtBuscar=findViewById(R.id.txtBuscar);
         ActualizarRecycler();
-
-        btnAgregar = findViewById(R.id.btnAgregar);
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent inte=new Intent(getApplicationContext(),Agregar.class);
-                startActivity(inte);
-            }
-        });
     }
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater=getMenuInflater();
@@ -58,16 +47,18 @@ public class Principal extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.btnAgregar:
+            case R.id.itmAgregar:
                 Intent inte=new Intent(getApplicationContext(),Agregar.class);
                 startActivity(inte);
                 return true;
-
+            case R.id.itmAcercaDe:
+                Toast.makeText(getApplicationContext(),"Juaquinz, Giogen, Monty",Toast.LENGTH_LONG).show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-*/
+
     public void ActualizarRecycler(){
         DaoFicha dao=new DaoFicha(this);
         lista=dao.SeleccionarTodos();
