@@ -22,6 +22,8 @@ public class FragmentVideo extends Fragment {
     private Button btnReproducir;
     private Button btnPausa;
 
+
+    //Metodo el cual sirve para poder cargar un video en nuestro fragment de videos el cual se podra visualizar
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class FragmentVideo extends Fragment {
     }
 
     public void setArchivo(Archivo archivo) {
+
         this.archivo = archivo;
     }
 
