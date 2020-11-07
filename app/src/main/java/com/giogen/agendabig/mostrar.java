@@ -27,6 +27,8 @@ public class mostrar extends AppCompatActivity {
     private RadioButton tarea;
     private TextView recordatorio;
     private String titulo1;
+
+    //El metodo onCreate "inicializa" los valores de las cajas de texto y demas elementos de la interfas de la aplicacion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class mostrar extends AppCompatActivity {
         llenarCampos();
     }
 
+    //Este metodo nos permite llenar los campos de las notas o tarea con toda la informacion
+    // anteriormente guardada para mostrarla
     public void llenarCampos(){
         DaoArchivo daoArchivo=new DaoArchivo(getApplicationContext());
         DaoFicha daoFicha=new DaoFicha(getApplicationContext());
@@ -53,8 +57,10 @@ public class mostrar extends AppCompatActivity {
         archivoArrayList=daoArchivo.seleccionarArchivos(ficha);
         titulo.setText(ficha.getTitulo());
         descripcion.setText(ficha.getDescripcion());
+        //Si lo que se guardo es una nota, se seleccionara el radiobuton de la nota
         if(ficha.getTipo().equals("nota")){
             nota.setChecked(true);
+            //Si lo que se guardo es una tarea, se seleccionara el radiobuton de la tarea
         }else if(ficha.getTipo().equals("tarea")){
             tarea.setChecked(true);
             recordatorio.setText(ficha.getFechaRecordatorio());
