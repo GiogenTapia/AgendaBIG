@@ -19,17 +19,20 @@ import java.io.IOException;
 
 public class FragmentAudio extends Fragment {
     private Archivo archivo;
-    //WIDGETS
+    //WIDGETS PARA REPRODUCIR MULTIMEDIA
     private Button btnReproducir;
     private Button btnPausar;
     private MediaPlayer mediaPlayer=new MediaPlayer();
 
+    // En esta parte se crea nuestro fragment que servira para obtener la multimedia de audio
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View vista=inflater.inflate(R.layout.fragment_audio,container,false);
         btnReproducir=(Button)vista.findViewById(R.id.btnReproducirAudio);
         btnPausar=(Button)vista.findViewById(R.id.btnPausarAudio);
+        //Obtenemos la ruta del archivo que se reproducira
         Uri uri=Uri.parse(archivo.getRuta());
         try {
             mediaPlayer.setDataSource(getContext(),uri);
@@ -37,12 +40,17 @@ public class FragmentAudio extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Metodo de clic para poder pausar nuestra multimedia
+
         btnPausar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.pause();
+            mediaPlayer.pause();
             }
         });
+
+        //Metodo de clic para comenzar a reproducir nuestra multimedia
         btnReproducir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
