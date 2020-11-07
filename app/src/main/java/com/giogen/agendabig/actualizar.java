@@ -70,6 +70,7 @@ public class actualizar extends AppCompatActivity {
         llenarCampos();
     }
 
+    //Metodo en el cual podemos obtener todos los datos de la ficha la cual se desea actualizar
     public void llenarCampos(){
         DaoArchivo daoArchivo=new DaoArchivo(getApplicationContext());
         DaoFicha daoFicha=new DaoFicha(getApplicationContext());
