@@ -30,14 +30,9 @@ public class DaoFicha {
 
     //Metodo para eliminar una ficha, se debe eliminar todos los archivos que este contenga, y aque tiene una llave foranea
     public boolean eliminar(Ficha ficha){
-        int no=bd.delete(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{ficha.getTitulo()});
-        if(no>0){
-            int no1=bd.delete(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{ficha.getTitulo()});
-            if(no1>0){
-                return true;
-            }else{
-                return false;
-            }
+        int no1=bd.delete(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{ficha.getTitulo()});
+        if(no1>0){
+            return true;
         }else{
             return false;
         }
