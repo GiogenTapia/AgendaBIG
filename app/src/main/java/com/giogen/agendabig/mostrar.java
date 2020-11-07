@@ -72,7 +72,11 @@ public class mostrar extends AppCompatActivity {
         }
     }
 
+    //Metodo de click largo del elemento que se dara click largo de nuestras fichas
+    //dependiendo de cual es el tipo de elemnto este hara una accion diferente.
+
     public void mostrarDetalle(Archivo archivo){
+        //Si el elemento fue una imagen se comenzara a realizar un nuevo fragmento el cual  se encargara de visualizar una imagen
         if(archivo.getTipo().equals("imagen")){
             FragmentDetalle detalle=new FragmentDetalle();
             detalle.setArchivo(archivo);
@@ -80,14 +84,19 @@ public class mostrar extends AppCompatActivity {
             transaction.replace(R.id.contenedor,detalle);
             transaction.addToBackStack(null);
             transaction.commit();
-        }else if(archivo.getTipo().equals("video")){
+        }
+        //Si este es una imagen comenzara el fragmento que servira para visualizar nuestro video.
+        else if(archivo.getTipo().equals("video")){
             FragmentVideo detalle1=new FragmentVideo();
             detalle1.setArchivo(archivo);
             FragmentTransaction transaction1=getSupportFragmentManager().beginTransaction();
             transaction1.replace(R.id.contenedor,detalle1);
             transaction1.addToBackStack(null);
             transaction1.commit();
-        }else if(archivo.getTipo().equals("audio")){
+        }
+        //Y si este es un archivo de audio de comenzara con el fragmento de audio que comenzara a realizar
+        //la reproduccion del audio guardado
+        else if(archivo.getTipo().equals("audio")){
             FragmentAudio detalle2=new FragmentAudio();
             detalle2.setArchivo(archivo);
             FragmentTransaction transaction2=getSupportFragmentManager().beginTransaction();

@@ -40,6 +40,9 @@ public class FragmentSelector extends Fragment {
 
     }
 
+    //Creacion de nuestro fragment selectos, el cual nos ayudara a visualizar
+    //las diferentes fichas que tengamos
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class FragmentSelector extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        //El metodo de click largo nos ayudara a poder obtener el metodo de mostrar detalle de nuestra clase mostrar
+        //y se obtiene el objeto al cual se le esta haciendo click
         adapter.setOnItemLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

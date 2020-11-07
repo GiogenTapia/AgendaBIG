@@ -15,8 +15,11 @@ import com.giogen.agendabig.ObjetosYDaos.Archivo;
 
 public class FragmentDetalle extends Fragment {
     private Archivo archivo;
-    //WIDGETS
+    //WIDGETS PARA AGREGAR LA IMAGEN
     private ImageView imageView;
+
+    //Metodo en el cual se infla nuestro fragmento en el xml de fragment_detalle, con este
+    //fragment se obtiene la visualizacion de nuestra imagen.
 
     @Nullable
     @Override
@@ -29,6 +32,7 @@ public class FragmentDetalle extends Fragment {
     }
 
     public void setArchivo(Archivo archivo) {
+
         this.archivo = archivo;
     }
 }
