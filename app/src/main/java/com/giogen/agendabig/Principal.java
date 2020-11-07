@@ -80,7 +80,7 @@ public class Principal extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion){
                             case 0:
-                                //Toast.makeText(getApplicationContext(),lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo(),Toast.LENGTH_LONG).show();
                                 Intent intent=new Intent(getApplicationContext(),mostrar.class);
                                 intent.putExtra("titulo",lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo());
                                 startActivity(intent);
