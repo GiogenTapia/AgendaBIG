@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mostrar">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,27 +19,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lblTitulo"
-                />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtTituloM"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                />
+                android:textAlignment="center" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lblDescripcion"
-                 />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtDescripcionM"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:inputType="textMultiLine"
-                />
+                android:textAlignment="center" />
 
             <RadioGroup
                 android:id="@+id/rdgTipoM"
@@ -71,7 +70,7 @@
                     android:id="@+id/lblRecordatorioM"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +81,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lblArchivos"
-                     />
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
 
             </LinearLayout>
 
