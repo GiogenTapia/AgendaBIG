@@ -15,19 +15,15 @@ public class Archivo {
         this.titulo = titulo;
     }
 
-
     public int getIdArchivo() {
         return idArchivo;
     }
-
     public void setIdArchivo(int idArchivo) {
         this.idArchivo = idArchivo;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

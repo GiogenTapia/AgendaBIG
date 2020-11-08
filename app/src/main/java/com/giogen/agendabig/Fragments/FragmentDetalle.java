@@ -30,9 +30,7 @@ public class FragmentDetalle extends Fragment {
         imageView.setImageURI(uri);
         return vista;
     }
-
     public void setArchivo(Archivo archivo) {
-
         this.archivo = archivo;
     }
 }

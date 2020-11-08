@@ -24,6 +24,10 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
         this.lista=lista;
     }
 
+
+    //Este es un adaptador de fichas el cual nos sirve para crear nuestras vistas de las fichas en e
+    //menu principal y para ello necesitamos nuestro item ficha la cual consta de un check box,
+    // una imagen y el titulo de la ficha
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -33,6 +37,8 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
         return viewHolder;
     }
 
+    //aqui se comprueba como es que se creara esta ficha, la cual si esta es una nota se le asignara
+    //una imagen en concreto al igual que si es una tarea,  y tambien se checa el estado de esta nota.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.titulo.setText(lista.get(i).getTitulo());
@@ -54,6 +60,7 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
     }
 
 
+    //obtenemos los diferentes elementos que tiene nuestro item ficha.
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView titulo;
         ImageView icono;

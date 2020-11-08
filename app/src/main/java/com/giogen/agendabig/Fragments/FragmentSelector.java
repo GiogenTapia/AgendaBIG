@@ -26,23 +26,18 @@ public class FragmentSelector extends Fragment {
     public void setLista(ArrayList<Archivo> lista) {
         this.lista = lista;
     }
-
     public void setAdapter(ArchivoAdapter adapter) {
         this.adapter = adapter;
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if(context instanceof Activity){
             this.activity=(Activity)context;
         }
-
     }
-
-    //Creacion de nuestro fragment selectos, el cual nos ayudara a visualizar
-    //las diferentes fichas que tengamos
-
+    //Creacion de nuestro fragment selectos, el cual nos ayudara como contenedor
+    //de los diferentes archivos que tengamos en nuestras fichas
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -21,8 +21,6 @@ public class FragmentVideo extends Fragment {
     private VideoView videoView;
     private Button btnReproducir;
     private Button btnPausa;
-
-
     //Metodo el cual sirve para poder cargar un video en nuestro fragment de videos el cual se podra visualizar
     @Nullable
     @Override
