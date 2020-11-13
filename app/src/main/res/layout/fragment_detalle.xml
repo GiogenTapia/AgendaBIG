@@ -4,10 +4,9 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
         android:id="@+id/imgvwImagen"
-        android:src="@drawable/ic_launcher_background"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="321dp"
+        android:src="@drawable/ic_launcher_background" />
 
 </LinearLayout>

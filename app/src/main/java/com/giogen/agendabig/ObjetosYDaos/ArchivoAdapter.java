@@ -41,7 +41,7 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
     // Creacion de nuestro  elemento el cual se estara mostrando
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.titulo.setText(lista.get(i).getDescripcion());
+
         if(lista.get(i).getTipo().equals("imagen")){
             viewHolder.icono.setImageResource(R.drawable.imagen);
         }else if(lista.get(i).getTipo().equals("video")){
@@ -61,11 +61,11 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
 
     //Asignacion de la imagen y la descripcion
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView titulo;
+       
         ImageView icono;
         public ViewHolder(View item){
             super(item);
-            titulo=(TextView)item.findViewById(R.id.lblDescripcionAr);
+
             icono=(ImageView)item.findViewById(R.id.imgvwIconoAr);
         }
     }
