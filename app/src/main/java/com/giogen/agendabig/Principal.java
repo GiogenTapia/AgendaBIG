@@ -2,6 +2,7 @@ package com.giogen.agendabig;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,12 +29,16 @@ public class Principal extends AppCompatActivity {
     private ArrayList<Ficha> lista=new ArrayList<>();
     private RecyclerView recyclerView;
     private EditText txtBuscar;
+    private GridLayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
         recyclerView=findViewById(R.id.rcclrFicha);
         txtBuscar=findViewById(R.id.txtBuscar);
+        layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(layoutManager);
         ActualizarRecycler();
     }
 
