@@ -67,6 +67,8 @@ public class Agregar extends AppCompatActivity {
     private String tipo;
     private ArrayList<Archivo> lista = new ArrayList<>();
     private ArrayList<Recordatorio> recordatorios = new ArrayList<>();
+    Uri uri;
+    String ruta = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,7 @@ public class Agregar extends AppCompatActivity {
         rdNota = findViewById(R.id.rdNota);
         rdTarea = findViewById(R.id.rdTarea);
         btnAgregarAlarma.setEnabled(false);
+
         //lnrRecordatorio.findViewById(R.id.lnrRecordatoria);
         rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -229,7 +232,11 @@ public class Agregar extends AppCompatActivity {
                         tomarVideo();
                         break;
                     case 2:
-                        TomarImagen();
+                        try {
+                            TomarImagen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case 3:
                         BuscarImagenes();
@@ -247,21 +254,39 @@ public class Agregar extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 1:
-                    try {
-                        //caso para el resultado de la camara
-                        imagen.setImageURI(uri);
-                        Toast.makeText(this.getApplicationContext(), ruta, Toast.LENGTH_LONG).show();
-
-                        Archivo archivo = new Archivo(1, txtDescripcion.getText().toString(), "imagen", ruta, txtTitulo.getText().toString());
-                        lista.add(archivo);
-                        actualizarArchivos();
-                        ruta="";
-                    }catch (Exception e ){
-                        Toast.makeText(getApplicationContext(),"Error foto",Toast.LENGTH_LONG).show();
-                    }
+                    //Caso para los audios
+                    Uri audio = data.getData();
+                    String cadena4 = audio.toString();
+                    Archivo archivo4 = new Archivo(1, txtDescripcion.getText().toString(), "audio", cadena4, txtTitulo.getText().toString());
+                    lista.add(archivo4);
+                    actualizarArchivos();
 
                     break;
                 case 2:
+                    //Caso para los videos.
+                    Uri vi = data.getData();
+                    String cadena1 = vi.toString();
+                    Archivo archivo1 = new Archivo(1, txtDescripcion.getText().toString(), "video", cadena1, txtTitulo.getText().toString());
+                    lista.add(archivo1);
+                    actualizarArchivos();
+
+                    break;
+                case 3:
+
+                    try {
+                        //caso para el resultado de la camara
+                        imagen.setImageURI(uri);
+                        Archivo archivo = new Archivo(1, txtDescripcion.getText().toString(), "imagen", ruta, txtTitulo.getText().toString());
+                        lista.add(archivo);
+                        actualizarArchivos();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_LONG).show();
+                    }
+
+
+                    break;
+                case 4:
+
                     //Este caso es para el seleccionar un archivo
                     Uri ima = data.getData();
                     String cadena = ima.toString();
@@ -270,88 +295,52 @@ public class Agregar extends AppCompatActivity {
                     Archivo archivo2 = new Archivo(1, txtDescripcion.getText().toString(), "imagen", cadena, txtTitulo.getText().toString());
                     lista.add(archivo2);
                     actualizarArchivos();
-                    break;
-                case 3:
-                    //Caso para los videos.
-                    Uri vi = data.getData();
-                    String cadena1 = vi.toString();
-                    Archivo archivo1 = new Archivo(1, txtDescripcion.getText().toString(), "video", cadena1, txtTitulo.getText().toString());
-                    lista.add(archivo1);
-                    actualizarArchivos();
-                    break;
-                case 4:
-                    //Caso para los audios
-                    Uri audio = data.getData();
-                    String cadena4 = audio.toString();
-                    Archivo archivo4 = new Archivo(1, txtDescripcion.getText().toString(), "audio", cadena4, txtTitulo.getText().toString());
-                    lista.add(archivo4);
-                    actualizarArchivos();
+
                     break;
             }
         }
     }
 
 
-    Uri uri;
-    String ruta="";
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void TomarImagen() {
-        //uri=null;
+    public void TomarImagen() throws IOException {
+
         Intent camaraFoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (camaraFoto.resolveActivity(getPackageManager()) != null){
-            File foto = null;
-            foto = createPhotoFile();
+            File foto = createPhotoFile();
+            uri = FileProvider.getUriForFile(getApplicationContext(),
+                    "com.giogen.agendabig.provider", foto);
+            camaraFoto.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
-            try {
-                if (foto != null){
-                    uri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                            BuildConfig.APPLICATION_ID + ".provider", foto);
-                    camaraFoto.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+            startActivityForResult(camaraFoto, 3);
 
-
-                    startActivityForResult(camaraFoto, 1);
-
-                }
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Error en la foto", Toast.LENGTH_LONG).show();
-            }
-
-
-
-        }
 
 
     }
 
-    private File createPhotoFile() {
+    private File createPhotoFile() throws IOException {
 
-        try {
-            String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String nameFoto = "imagen" + time;
-            File almacen = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            File fotoFile = File.createTempFile(nameFoto, ".png", almacen);
-            ruta= fotoFile.getAbsolutePath();
-            return fotoFile;
-        } catch (Exception e) {
-            return null;
-        }
+        String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String nameFoto = "imagen" + time;
+        File almacen = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File fotoFile = File.createTempFile(nameFoto, ".jpg", almacen);
+        ruta = fotoFile.getAbsolutePath();
+        return fotoFile;
+
 
     }
 
     public void tomarVideo() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        startActivityForResult(intent, 3);
+        startActivityForResult(intent, 2);
     }
 
     public void grabarAudio() {
         Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
-        startActivityForResult(intent, 4);
+        startActivityForResult(intent, 1);
     }
 
     private void BuscarImagenes() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, 4);
     }
 
     public void MostarRecordatorios(View v) {

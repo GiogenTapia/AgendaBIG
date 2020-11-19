@@ -87,7 +87,8 @@
                     android:id="@+id/lblRecordatorio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +114,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lblArchivos"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
 
             </LinearLayout>
 
