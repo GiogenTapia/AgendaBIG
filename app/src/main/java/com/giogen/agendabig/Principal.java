@@ -19,6 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
 import com.giogen.agendabig.R;
 import android.widget.Toast;
 
@@ -105,7 +107,9 @@ public class Principal extends AppCompatActivity {
                                 break;
                             case 2:
                                 DaoFicha daonuevo=new DaoFicha(getApplicationContext());
-                                if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)))){
+                                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                                if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n))) ){
+                                    daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
                                 ActualizarRecycler();

@@ -61,8 +61,9 @@ public class DaoArchivo {
     }
 
 
+
     //METODO ELIMINAR FICHA
-    public boolean eliminar(Ficha ficha){
+    public boolean eliminarTodos(Ficha ficha){
         int no=bd.delete(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{ficha.getTitulo()});
         if(no>0){
             return true;

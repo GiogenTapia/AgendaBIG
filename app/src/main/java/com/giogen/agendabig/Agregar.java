@@ -86,6 +86,8 @@ public class Agregar extends AppCompatActivity {
         btnAgregarAlarma.setEnabled(false);
 
         //lnrRecordatorio.findViewById(R.id.lnrRecordatoria);
+
+
         rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -126,59 +128,65 @@ public class Agregar extends AppCompatActivity {
     }
 
     public void btnGuardarOnClick(View v) {
-        String titulo = txtTitulo.getText().toString();
-        String descripcion = txtDescripcion.getText().toString();
-        Calendar fechaActual = Calendar.getInstance();
-        String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
-        if (tipo.equals("nota")) {
-            Ficha ficha = new Ficha(titulo, descripcion, tipo, fechaRegistro, "", "true");
-            DaoFicha dao = new DaoFicha(getApplicationContext());
-            DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
-            DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
-            if (dao.Insert(ficha) > 0) {
-                Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
-                if (daoArchivo.insertarVariosArchivos(lista)) {
-                    Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
-                    for (int i = 0; i < recordatorios.size(); i++) {
-                        recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
-                        if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
-                            intent.putExtra("titulo", txtTitulo.getText().toString());
-                            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-                            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
-                            Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    Intent intent = new Intent(getApplicationContext(), Principal.class);
-                    startActivity(intent);
-                }
-            }
+        try {
 
-        } else if (tipo.equals("tarea")) {
-            Ficha tarea = new Ficha(titulo, descripcion, tipo, fechaRegistro, lblAlarma.getText().toString(), "true");
-            DaoFicha dao = new DaoFicha(getApplicationContext());
-            DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
-            DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
-            if (dao.Insert(tarea) > 0) {
-                Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
-                if (daoArchivo.insertarVariosArchivos(lista)) {
-                    Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
-                    for (int i = 0; i < recordatorios.size(); i++) {
-                        recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
-                        if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
-                            intent.putExtra("titulo", txtTitulo.getText().toString());
-                            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-                            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
-                            Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
+
+            String titulo = txtTitulo.getText().toString();
+            String descripcion = txtDescripcion.getText().toString();
+            Calendar fechaActual = Calendar.getInstance();
+            String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
+            if (tipo.equals("nota")) {
+                Ficha ficha = new Ficha(titulo, descripcion, tipo, fechaRegistro, "", "true");
+                DaoFicha dao = new DaoFicha(getApplicationContext());
+                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
+                if (dao.Insert(ficha) > 0) {
+                    Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                    if (daoArchivo.insertarVariosArchivos(lista)) {
+                        Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
+                        for (int i = 0; i < recordatorios.size(); i++) {
+                            recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
+                            if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
+                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
+                                intent.putExtra("titulo", txtTitulo.getText().toString());
+                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
+                                Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
+                            }
                         }
+                        Intent intent = new Intent(getApplicationContext(), Principal.class);
+                        startActivity(intent);
                     }
-                    Intent intent = new Intent(getApplicationContext(), Principal.class);
-                    startActivity(intent);
+                }
+
+            } else if (tipo.equals("tarea")) {
+                Ficha tarea = new Ficha(titulo, descripcion, tipo, fechaRegistro, lblAlarma.getText().toString(), "true");
+                DaoFicha dao = new DaoFicha(getApplicationContext());
+                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
+                if (dao.Insert(tarea) > 0) {
+                    Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
+                    if (daoArchivo.insertarVariosArchivos(lista)) {
+                        Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
+                        for (int i = 0; i < recordatorios.size(); i++) {
+                            recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
+                            if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
+                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
+                                intent.putExtra("titulo", txtTitulo.getText().toString());
+                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
+                                Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        Intent intent = new Intent(getApplicationContext(), Principal.class);
+                        startActivity(intent);
+                    }
                 }
             }
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Faltan datos",Toast.LENGTH_LONG).show();
         }
     }
 
