@@ -21,6 +21,7 @@
         android:gravity="center_horizontal"
         android:text="Item"
         android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
         android:textSize="20dp" />
 
 </LinearLayout>

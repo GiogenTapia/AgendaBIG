@@ -22,13 +22,13 @@
                 android:hint="@string/txtBjscar"
                 android:id="@+id/txtBuscar"
                 />
+
             <Button
+                android:id="@+id/btnBuscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txtBjscar"
-                android:id="@+id/btnBuscar"
                 android:onClick="buscar"
-                />
+                android:text="@string/txtBjscar" />
 
         </LinearLayout>
 

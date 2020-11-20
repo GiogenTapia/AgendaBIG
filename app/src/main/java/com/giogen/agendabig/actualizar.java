@@ -49,6 +49,7 @@ public class actualizar extends AppCompatActivity {
     private RadioButton nota;
     private RadioButton tarea;
     private TextView recordatorio;
+    String ruta = "";
     private String titulo1;
     private RecyclerView recyclerView;
     private Button btnTerminacion;
@@ -270,19 +271,20 @@ public class actualizar extends AppCompatActivity {
                     actualizarArchivos();
                     break;
                 case 3:
+
+                    Archivo archivo = new Archivo(1, descripcion.getText().toString(), "imagen", ruta, titulo.getText().toString());
+                    lista.add(archivo);
+                    DaoArchivo da = new DaoArchivo(getApplicationContext());
+                    da.insertarArchivo(archivo);
+                    actualizarArchivos();
+                    break;
+                case 4:
                     Uri ima = data.getData();
                     String cadena = ima.toString();
                     Archivo archivo2 = new Archivo(1, descripcion.getText().toString(), "imagen", cadena, titulo.getText().toString());
                     lista.add(archivo2);
                     DaoArchivo da2 = new DaoArchivo(getApplicationContext());
                     da2.insertarArchivo(archivo2);
-                    actualizarArchivos();
-                    break;
-                case 4:
-                    Archivo archivo = new Archivo(1, descripcion.getText().toString(), "imagen", uri.toString(), titulo.getText().toString());
-                    lista.add(archivo);
-                    DaoArchivo da = new DaoArchivo(getApplicationContext());
-                    da.insertarArchivo(archivo);
                     actualizarArchivos();
                     break;
             }
@@ -318,6 +320,7 @@ public class actualizar extends AppCompatActivity {
             String nameFoto = "imagen" + time;
             File almacen = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             File fotoFile = File.createTempFile(nameFoto, ".jpg", almacen);
+            ruta= fotoFile.getAbsolutePath();
             return fotoFile;
         } catch (Exception e) {
             return null;
