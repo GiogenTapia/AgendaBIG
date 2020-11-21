@@ -49,8 +49,6 @@ public class FragmentSelector extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayoutManager = new GridLayoutManager(getContext(),4);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
         recyclerView.setAdapter(adapter);
 
         //El metodo de click largo nos ayudara a poder obtener el metodo de mostrar detalle de nuestra clase mostrar

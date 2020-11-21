@@ -163,7 +163,9 @@ public class Principal extends AppCompatActivity {
                                 break;
                             case 2:
                                 DaoFicha daonuevo=new DaoFicha(getApplicationContext());
+                                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)))){
+                                    daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
                                 ActualizarRecycler();

@@ -88,7 +88,6 @@ public class mostrar extends AppCompatActivity {
         if(archivo.getTipo().equals("imagen")){
             FragmentDetalle detalle=new FragmentDetalle();
             detalle.setArchivo(archivo);
-            Toast.makeText(getApplicationContext(),archivo.getRuta()+"",Toast.LENGTH_LONG);
             FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.contenedor,detalle);
             transaction.addToBackStack(null);
@@ -108,7 +107,6 @@ public class mostrar extends AppCompatActivity {
         else if(archivo.getTipo().equals("audio")){
             FragmentAudio detalle2=new FragmentAudio();
             detalle2.setArchivo(archivo);
-            Toast.makeText(getApplicationContext(),archivo.getRuta()+"",Toast.LENGTH_LONG);
             FragmentTransaction transaction2=getSupportFragmentManager().beginTransaction();
             transaction2.replace(R.id.contenedor,detalle2);
             transaction2.addToBackStack(null);
