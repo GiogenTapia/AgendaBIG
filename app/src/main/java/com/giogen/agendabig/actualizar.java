@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -101,6 +102,7 @@ public class actualizar extends AppCompatActivity {
     public void actualizarArchivos() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager = new GridLayoutManager(getApplicationContext(),4);
         recyclerView.setLayoutManager(linearLayoutManager);
         final ArchivoAdapter adapter = new ArchivoAdapter(this, lista);
         recyclerView.setAdapter(adapter);

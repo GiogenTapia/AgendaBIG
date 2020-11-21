@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.giogen.agendabig.ObjetosYDaos.Archivo;
@@ -22,6 +23,7 @@ public class FragmentSelector extends Fragment {
     private ArrayList<Archivo>lista=new ArrayList<>();
     private Activity activity;
     private ArchivoAdapter adapter;
+    private GridLayoutManager layoutManager;
 
     public void setLista(ArrayList<Archivo> lista) {
         this.lista = lista;
@@ -45,7 +47,10 @@ public class FragmentSelector extends Fragment {
         recyclerView=(RecyclerView)vista.findViewById(R.id.rcclrArchivoFragment);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager = new GridLayoutManager(getContext(),4);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
         recyclerView.setAdapter(adapter);
 
         //El metodo de click largo nos ayudara a poder obtener el metodo de mostrar detalle de nuestra clase mostrar

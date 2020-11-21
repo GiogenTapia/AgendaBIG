@@ -33,6 +33,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -130,6 +131,13 @@ public class Agregar extends AppCompatActivity {
     public void btnGuardarOnClick(View v) {
         try {
 
+            for (int i=0;i<lista.size();i++){
+                lista.get(i).setTitulo(txtTitulo.getText().toString());
+            }
+
+            for (int i=0;i<recordatorios.size();i++){
+                recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
+            }
 
             String titulo = txtTitulo.getText().toString();
             String descripcion = txtDescripcion.getText().toString();
@@ -193,6 +201,7 @@ public class Agregar extends AppCompatActivity {
     public void actualizarArchivos() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager = new GridLayoutManager(getApplicationContext(),4);
         recyclerView.setLayoutManager(linearLayoutManager);
         final ArchivoAdapter adapter = new ArchivoAdapter(this, lista);
         recyclerView.setAdapter(adapter);
@@ -352,7 +361,6 @@ public class Agregar extends AppCompatActivity {
     }
 
     public void MostarRecordatorios(View v) {
-
 
         AlertDialog.Builder menu = new AlertDialog.Builder(v.getContext());
         CharSequence[] opciones = new CharSequence[recordatorios.size()];

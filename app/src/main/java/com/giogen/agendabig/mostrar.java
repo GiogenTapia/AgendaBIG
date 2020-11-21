@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.giogen.agendabig.Fragments.FragmentAudio;
 import com.giogen.agendabig.Fragments.FragmentDetalle;
@@ -27,6 +28,7 @@ public class mostrar extends AppCompatActivity {
     private RadioButton tarea;
     private TextView recordatorio;
     private String titulo1;
+
 
     //El metodo onCreate "inicializa" los valores de las cajas de texto y demas elementos de la interfas de la aplicacion
     @Override
