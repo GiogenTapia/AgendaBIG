@@ -16,20 +16,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
+
             <EditText
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/txtBjscar"
                 android:id="@+id/txtBuscar"
-                />
+                android:layout_width="303dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/txtBjscar" />
 
             <Button
                 android:id="@+id/btnBuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="buscar"
-                android:background="@color/colorPrimary"
-                android:text="@string/txtBjscar" />
+                android:layout_width="57dp"
+                android:layout_height="34dp"
+                android:background="@drawable/buscar"
+                android:onClick="buscar" />
 
         </LinearLayout>
 

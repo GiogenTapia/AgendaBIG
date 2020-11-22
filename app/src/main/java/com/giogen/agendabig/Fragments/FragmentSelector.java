@@ -47,6 +47,8 @@ public class FragmentSelector extends Fragment {
         recyclerView=(RecyclerView)vista.findViewById(R.id.rcclrArchivoFragment);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager = new GridLayoutManager(getContext(),4);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 

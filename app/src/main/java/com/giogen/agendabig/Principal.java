@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
+import com.giogen.agendabig.ObjetosYDaos.DaoRecordatorio;
 import com.giogen.agendabig.R;
 import android.widget.Toast;
 
@@ -108,8 +109,10 @@ public class Principal extends AppCompatActivity {
                             case 2:
                                 DaoFicha daonuevo=new DaoFicha(getApplicationContext());
                                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                                DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n))) ){
                                     daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
+                                    daoRecordatorio.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
                                 ActualizarRecycler();
@@ -164,8 +167,10 @@ public class Principal extends AppCompatActivity {
                             case 2:
                                 DaoFicha daonuevo=new DaoFicha(getApplicationContext());
                                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                                DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)))){
                                     daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
+                                    daoRecordatorio.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
                                 ActualizarRecycler();

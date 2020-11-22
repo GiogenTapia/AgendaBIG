@@ -39,4 +39,13 @@ public class DaoRecordatorio {
         return lista;
     }
 
+    public boolean eliminar(Ficha ficha){
+        int no=bd.delete(BaseDeDatos.RECORDATORIO,BaseDeDatos.RECORDATORIOCOLUMNS[6]+"=?",new String[]{ficha.getTitulo()+""});
+        if(no>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

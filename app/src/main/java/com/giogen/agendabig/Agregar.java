@@ -218,6 +218,8 @@ public class Agregar extends AppCompatActivity {
     public void actualizarArchivos() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager = new GridLayoutManager(getApplicationContext(),4);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setLayoutManager(linearLayoutManager);
        final ArchivoAdapter adapter = new ArchivoAdapter(this, lista);
         recyclerView.setAdapter(adapter);
