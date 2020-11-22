@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.giogen.agendabig.R;
@@ -17,10 +19,12 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
     private Context context;
     private ArrayList<Archivo> lista;
     private View.OnLongClickListener onLongClickListener;
+
     //private View.OnClickListener onClickListener;
 
 
-    public ArchivoAdapter(Context context,ArrayList<Archivo> lista){
+
+    public ArchivoAdapter(Context context, ArrayList<Archivo> lista){
         this.context=context;
         this.lista=lista;
     }
@@ -42,6 +46,7 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+
         if(lista.get(i).getTipo().equals("imagen")){
             viewHolder.icono.setImageResource(R.drawable.imagen);
         }else if(lista.get(i).getTipo().equals("video")){
@@ -51,7 +56,10 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
         }else{
             viewHolder.icono.setImageResource(R.drawable.nota);
         }
+
+
     }
+
 
 
     @Override
@@ -61,14 +69,16 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
 
     //Asignacion de la imagen y la descripcion
     public class ViewHolder extends RecyclerView.ViewHolder{
-       
+
         ImageView icono;
         public ViewHolder(View item){
             super(item);
-
             icono=(ImageView)item.findViewById(R.id.imgvwIconoAr);
+
         }
     }
+
+
 
     public void setOnItemLongClickListener(View.OnLongClickListener onLongClickListener) {
         this.onLongClickListener = onLongClickListener;

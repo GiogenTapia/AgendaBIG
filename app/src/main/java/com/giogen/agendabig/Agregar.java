@@ -36,8 +36,11 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.WorkManager;
 
 import com.giogen.agendabig.Notificacion.PlanificarAlarma;
+import com.giogen.agendabig.Notificacion.WorkManagerNotify;
 import com.giogen.agendabig.ObjetosYDaos.Archivo;
 import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
 import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
@@ -48,15 +51,18 @@ import com.giogen.agendabig.ObjetosYDaos.Recordatorio;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Agregar extends AppCompatActivity {
     private Button btnAgregarAlarma;
     private TextView lblAlarma;
+
     private TextView txtTitulo;
     private TextView txtDescripcion;
     private RadioGroup rdg;
@@ -70,6 +76,7 @@ public class Agregar extends AppCompatActivity {
     private ArrayList<Recordatorio> recordatorios = new ArrayList<>();
     Uri uri;
     String ruta = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +92,6 @@ public class Agregar extends AppCompatActivity {
         rdNota = findViewById(R.id.rdNota);
         rdTarea = findViewById(R.id.rdTarea);
         btnAgregarAlarma.setEnabled(false);
-
-        //lnrRecordatorio.findViewById(R.id.lnrRecordatoria);
-
 
         rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -117,6 +121,7 @@ public class Agregar extends AppCompatActivity {
             }
         }, fechaActual1.get(Calendar.HOUR), fechaActual1.get(Calendar.MINUTE), false);
         timePickerDialog.show();
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -137,12 +142,14 @@ public class Agregar extends AppCompatActivity {
 
             for (int i=0;i<recordatorios.size();i++){
                 recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
+
             }
 
             String titulo = txtTitulo.getText().toString();
             String descripcion = txtDescripcion.getText().toString();
             Calendar fechaActual = Calendar.getInstance();
             String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
+
             if (tipo.equals("nota")) {
                 Ficha ficha = new Ficha(titulo, descripcion, tipo, fechaRegistro, "", "true");
                 DaoFicha dao = new DaoFicha(getApplicationContext());
@@ -155,20 +162,26 @@ public class Agregar extends AppCompatActivity {
                         for (int i = 0; i < recordatorios.size(); i++) {
                             recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
                             if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
-                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
-                                intent.putExtra("titulo", txtTitulo.getText().toString());
-                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
-                                Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
+
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm");
+                                Date date = new Date();
+                                date = simpleDateFormat.parse(recordatorios.get(i).toString());
+                                Date justNow = new Date();
+                                long alertTime = date.getTime() - justNow.getTime();
+                                Data data = saveData(txtTitulo.getText().toString(),descripcion,recordatorios.get(i).getId());
+                                WorkManagerNotify.saveNotification(alertTime,data, recordatorios.get(i).getId()+"");
+
+
+
+
                             }
                         }
-                        Intent intent = new Intent(getApplicationContext(), Principal.class);
-                        startActivity(intent);
+
                     }
                 }
 
             } else if (tipo.equals("tarea")) {
+
                 Ficha tarea = new Ficha(titulo, descripcion, tipo, fechaRegistro, lblAlarma.getText().toString(), "true");
                 DaoFicha dao = new DaoFicha(getApplicationContext());
                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
@@ -176,23 +189,27 @@ public class Agregar extends AppCompatActivity {
                 if (dao.Insert(tarea) > 0) {
                     Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
                     if (daoArchivo.insertarVariosArchivos(lista)) {
-                        Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
                         for (int i = 0; i < recordatorios.size(); i++) {
                             recordatorios.get(i).setTitulo(txtTitulo.getText().toString());
                             if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
-                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
-                                intent.putExtra("titulo", txtTitulo.getText().toString());
-                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, recordatorios.get(i).milis(), pi);
-                                Toast.makeText(getApplicationContext(), "s" + recordatorios.get(i).milis(), Toast.LENGTH_LONG).show();
+
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm");
+                                Date date = new Date();
+                                date = simpleDateFormat.parse(recordatorios.get(i).toString());
+                                Date justNow = new Date();
+                                long alertTime = date.getTime() - justNow.getTime();
+                                Data data = saveData(txtTitulo.getText().toString(),descripcion,recordatorios.get(i).getId());
+                                WorkManagerNotify.saveNotification(alertTime,data, recordatorios.get(i).getId()+"");
+
                             }
                         }
-                        Intent intent = new Intent(getApplicationContext(), Principal.class);
-                        startActivity(intent);
+
                     }
                 }
             }
+            Intent intent = new Intent(getApplicationContext(), Principal.class);
+            startActivity(intent);
+
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"Faltan datos",Toast.LENGTH_LONG).show();
         }
@@ -201,9 +218,8 @@ public class Agregar extends AppCompatActivity {
     public void actualizarArchivos() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayoutManager = new GridLayoutManager(getApplicationContext(),4);
         recyclerView.setLayoutManager(linearLayoutManager);
-        final ArchivoAdapter adapter = new ArchivoAdapter(this, lista);
+       final ArchivoAdapter adapter = new ArchivoAdapter(this, lista);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -217,8 +233,6 @@ public class Agregar extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion) {
                             case 0:
-
-                                // Toast.makeText(getApplicationContext(),"Eliminar: "+lista.get(recyclerView.getChildAdapterPosition(n)),Toast.LENGTH_LONG).show();
                                 lista.remove(lista.get(recyclerView.getChildAdapterPosition(n)));
                                 actualizarArchivos();
                                 break;
@@ -389,16 +403,39 @@ public class Agregar extends AppCompatActivity {
             }
         }, fechaActual1.get(Calendar.HOUR), fechaActual1.get(Calendar.MINUTE), false);
         timePickerDialog.show();
+
+        
+        
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 recordatorio.setDia(dayOfMonth);
-                recordatorio.setMes(month);
+                recordatorio.setMes(month+1);
                 recordatorio.setAnio(year);
             }
         }, fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH), fechaActual.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+
+
+    private void deleteNotify(String tag){
+        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
+        Toast.makeText(this, "Para ver si se elimina", Toast.LENGTH_SHORT).show();
+    }
+
+    private String generateKey(){
+        return UUID.randomUUID().toString();
+    }
+
+    private Data saveData (String title, String content, int idNotification){
+        return new Data.Builder()
+                .putString("Title",title)
+                .putString("Content",content)
+                .putInt("id",idNotification).build();
+    }
+
+
+
 
 
 

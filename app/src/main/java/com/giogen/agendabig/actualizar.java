@@ -173,7 +173,9 @@ public class actualizar extends AppCompatActivity {
                 PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Toast.makeText(getApplicationContext(), "s" + recordatorio.milis(), Toast.LENGTH_LONG).show();
                 alarmManager.set(AlarmManager.RTC_WAKEUP, 30000, pi);
-                Toast.makeText(getApplicationContext(), "s" + recordatorio.milis(), Toast.LENGTH_LONG).show();
+
+
+
             }
         }, fechaActual1.get(Calendar.HOUR), fechaActual1.get(Calendar.MINUTE), false);
         timePickerDialog.show();

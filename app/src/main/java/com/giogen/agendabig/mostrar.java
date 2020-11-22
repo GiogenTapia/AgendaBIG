@@ -67,9 +67,6 @@ public class mostrar extends AppCompatActivity {
             tarea.setChecked(true);
             recordatorio.setText(ficha.getFechaRecordatorio());
         }
-//        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(linearLayoutManager);
         ArchivoAdapter adapter=new ArchivoAdapter(this,archivoArrayList);
         //recyclerView.setAdapter(adapter);
         if(findViewById(R.id.contenedor)!=null&&(getSupportFragmentManager().findFragmentById(R.id.contenedor)==null)){

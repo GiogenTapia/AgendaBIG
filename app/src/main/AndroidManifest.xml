@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Agregar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +29,9 @@
         </activity>
         <activity android:name=".mostrar" />
         <activity android:name=".actualizar"></activity>
+
+
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
