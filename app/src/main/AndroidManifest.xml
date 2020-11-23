@@ -27,8 +27,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".mostrar" />
-        <activity android:name=".actualizar"></activity>
+        <activity android:name=".mostrar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
+        <activity android:name=".actualizar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            ></activity>
 
 
 

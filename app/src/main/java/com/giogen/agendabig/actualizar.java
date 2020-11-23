@@ -25,8 +25,11 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.WorkManager;
 
 import com.giogen.agendabig.Notificacion.PlanificarAlarma;
+import com.giogen.agendabig.Notificacion.WorkManagerNotify;
 import com.giogen.agendabig.ObjetosYDaos.Archivo;
 import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
 import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
@@ -40,11 +43,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 public class actualizar extends AppCompatActivity {
     private Ficha ficha;
     private ArrayList<Archivo> lista;
     private ArrayList<Recordatorio> listaRecordatorio;
+    private ArrayList<Recordatorio> recordatorios;
     private TextView titulo;
     private TextView descripcion;
     private RadioButton nota;
@@ -54,6 +59,7 @@ public class actualizar extends AppCompatActivity {
     private String titulo1;
     private RecyclerView recyclerView;
     private Button btnTerminacion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,7 @@ public class actualizar extends AppCompatActivity {
         titulo.setEnabled(false);
         recordatorio = findViewById(R.id.lblRecordatorioA);
         recyclerView = findViewById(R.id.rcclcArchivoListaA);
+         recordatorios = new ArrayList<>();
 
         llenarCampos();
     }
@@ -164,18 +171,7 @@ public class actualizar extends AppCompatActivity {
                 recordatorio.setMinuto(minute);
                 recordatorio.setHora(hourOfDay);
                 listaRecordatorio.add(recordatorio);
-                DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
-                daoRecordatorio.Insert(recordatorio);
-
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                Intent intent = new Intent(getApplicationContext(), PlanificarAlarma.class);
-                //.putExtra("titulo", titulo.getText().toString());
-                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                Toast.makeText(getApplicationContext(), "s" + recordatorio.milis(), Toast.LENGTH_LONG).show();
-                alarmManager.set(AlarmManager.RTC_WAKEUP, 30000, pi);
-
-
-
+                recordatorios.add(recordatorio);
             }
         }, fechaActual1.get(Calendar.HOUR), fechaActual1.get(Calendar.MINUTE), false);
         timePickerDialog.show();
@@ -183,7 +179,7 @@ public class actualizar extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //recordatorio.setText(dayOfMonth+"-"+month+"-"+year);
-                recordatorio.setMes(month);
+                recordatorio.setMes(month+1);
                 recordatorio.setAnio(year);
                 recordatorio.setDia(dayOfMonth);
 
@@ -208,18 +204,75 @@ public class actualizar extends AppCompatActivity {
     }
 
     public void btnGuardarAOnClick(View v) {
-        DaoFicha dao = new DaoFicha(getApplicationContext());
-        ficha.setDescripcion(descripcion.getText().toString());
-        if (ficha.getTipo().equals("nota")) {
 
-        } else if (ficha.getTipo().equals("tarea")) {
-            ficha.setFechaRecordatorio(recordatorio.getText().toString());
-        }
-        if (dao.actualizar(ficha)) {
-            Toast.makeText(getApplicationContext(), "Se actualizo correctamente", Toast.LENGTH_SHORT).show();
+        try{
+            for (int i=0;i<lista.size();i++){
+                lista.get(i).setTitulo(titulo.getText().toString());
+            }
+
+            for (int i=0;i<recordatorios.size();i++){
+                recordatorios.get(i).setTitulo(titulo.getText().toString());
+
+            }
+
+            String title = titulo.getText().toString();
+            String desc = descripcion.getText().toString();
+            Calendar fechaActual = Calendar.getInstance();
+            String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
+
+            if (nota.isChecked()) {
+                Ficha ficha = new Ficha(title, desc, "nota", fechaRegistro, "", "true");
+                DaoFicha dao = new DaoFicha(getApplicationContext());
+                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
+                if (dao.actualizar(ficha)) {
+                        Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
+                        for (int i = 0; i < recordatorios.size(); i++) {
+                            recordatorios.get(i).setTitulo(titulo.getText().toString());
+                            if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm");
+                                Date date = new Date();
+                                date = simpleDateFormat.parse(recordatorios.get(i).toString());
+                                Date justNow = new Date();
+                                long alertTime = date.getTime() - justNow.getTime();
+                                Data data = saveData(titulo.getText().toString(),desc,recordatorios.get(i).getId());
+                                WorkManagerNotify.saveNotification(alertTime,data, recordatorios.get(i).getId()+"");
+                        }
+
+                    }
+                }
+
+            } else if (tarea.isChecked()) {
+                Ficha tarea = new Ficha(title, desc, "tarea", fechaRegistro, recordatorio.getText().toString(), "true");
+                DaoFicha dao = new DaoFicha(getApplicationContext());
+                DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
+                DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
+                if (dao.actualizar(tarea)) {
+                    Toast.makeText(this, "Se actualizo", Toast.LENGTH_LONG).show();
+                        for (int i = 0; i < recordatorios.size(); i++) {
+                            recordatorios.get(i).setTitulo(titulo.getText().toString());
+                            if (daoRecordatorio.Insert(recordatorios.get(i)) > 0) {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm");
+                                Date date = new Date();
+                                date = simpleDateFormat.parse(recordatorios.get(i).toString());
+                                Date justNow = new Date();
+                                long alertTime = date.getTime() - justNow.getTime();
+                                Data data = saveData(titulo.getText().toString(),desc,recordatorios.get(i).getId());
+                                WorkManagerNotify.saveNotification(alertTime,data, recordatorios.get(i).getId()+"");
+
+                            }
+
+
+                    }
+                }
+            }
             Intent intent = new Intent(getApplicationContext(), Principal.class);
             startActivity(intent);
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void btnArchivosAOnClick(View v) {
@@ -346,4 +399,21 @@ public class actualizar extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(intent, 4);
     }
+
+    private void deleteNotify(String tag){
+        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
+        Toast.makeText(this, "Para ver si se elimina", Toast.LENGTH_SHORT).show();
+    }
+
+    private String generateKey(){
+        return UUID.randomUUID().toString();
+    }
+
+    private Data saveData (String title, String content, int idNotification){
+        return new Data.Builder()
+                .putString("Title",title)
+                .putString("Content",content)
+                .putInt("id",idNotification).build();
+    }
+
 }
