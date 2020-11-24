@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -55,6 +56,7 @@ public class actualizar extends AppCompatActivity {
     private RadioButton nota;
     private RadioButton tarea;
     private TextView recordatorio;
+    private ImageView imagen;
     String ruta = "";
     private String titulo1;
     private RecyclerView recyclerView;
@@ -73,6 +75,7 @@ public class actualizar extends AppCompatActivity {
         descripcion = findViewById(R.id.txtDescripcionA);
         nota = findViewById(R.id.rdNotaA);
         btnTerminacion = findViewById(R.id.btnAgregarAlarmaA);
+        imagen = findViewById(R.id.Imagen);
         nota.setEnabled(false);
         tarea = findViewById(R.id.rdTareaA);
         tarea.setEnabled(false);
@@ -328,7 +331,7 @@ public class actualizar extends AppCompatActivity {
                     actualizarArchivos();
                     break;
                 case 3:
-
+                    imagen.setImageURI(uri);
                     Archivo archivo = new Archivo(1, descripcion.getText().toString(), "imagen", ruta, titulo.getText().toString());
                     lista.add(archivo);
                     DaoArchivo da = new DaoArchivo(getApplicationContext());
@@ -338,6 +341,7 @@ public class actualizar extends AppCompatActivity {
                 case 4:
                     Uri ima = data.getData();
                     String cadena = ima.toString();
+                    imagen.setImageURI(ima);
                     Archivo archivo2 = new Archivo(1, descripcion.getText().toString(), "imagen", cadena, titulo.getText().toString());
                     lista.add(archivo2);
                     DaoArchivo da2 = new DaoArchivo(getApplicationContext());

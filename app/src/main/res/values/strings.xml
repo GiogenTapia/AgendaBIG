@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Agenda</string>
+    <string name="app_name" translatable="false">AgendaBIG</string>
     <string name="txtBjscar" translatable="false">Buscar</string>
     <string name="btnAgregar" translatable="false">Agregar</string>
     <string name="lblTitulo" translatable="false">Titulo</string>
@@ -8,22 +8,22 @@
     <string name="rdNota" translatable="false">Nota</string>
     <string name="btnFechaAlarma" translatable="false">Seleccionar Fecha y Hora</string>
     <string name="lblArchivos" translatable="false">Archivos</string>
-    <string name="btnArchivos" translatable="false">Adjuntar Archivos</string>
+    <string name="btnArchivos" translatable="false">Añadir Archivos</string>
     <string name="btnGuardar" translatable="false">Guardar</string>
     <string name="itmAgregar" translatable="false">Agregar</string>
-    <string name="itmAcercaDe" translatable="false">Acerca de</string>
+    <string name="itmAcercaDe" translatable="false">Nosotros</string>
     <string name="itmModificar" translatable="false">Modificar1</string>
     <string name="itmEliminar" translatable="false">Eliminar1</string>
     <string name="btnReproducir" translatable="false">Reproducir</string>
     <string name="btnPausar" translatable="false">Pausa</string>
 
-    <string name="terminacion" translatable="false">Terminacion</string>
-    <string name="agregarRecordatorio" translatable="false">Agregar Recordatorio</string>
-    <string name="verRecordatorios" translatable="false">Ver Recordatorio</string>
+    <string name="terminacion" translatable="false">Finalizar</string>
+    <string name="agregarRecordatorio" translatable="false">Nuevo Recordatorio</string>
+    <string name="verRecordatorios" translatable="false">Recordatorios</string>
     <string name="audio" translatable="false">Grabar audio</string>
     <string name="video" translatable="false">Grabar video</string>
-    <string name="foto" translatable="false">Tomar foto</string>
-    <string name="archivo" translatable="false">Seleccionar un archivo</string>
+    <string name="foto" translatable="false">Fotografia</string>
+    <string name="archivo" translatable="false">Buscar archivo</string>
 
     <string name="eliminar" translatable="false">Eliminar</string>
     <string name="modificar" translatable="false">Actualizar</string>

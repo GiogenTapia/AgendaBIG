@@ -46,7 +46,6 @@ public class ArchivoAdapter  extends  RecyclerView.Adapter<ArchivoAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-
         if(lista.get(i).getTipo().equals("imagen")){
             viewHolder.icono.setImageResource(R.drawable.imagen);
         }else if(lista.get(i).getTipo().equals("video")){
