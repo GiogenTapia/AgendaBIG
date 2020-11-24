@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -107,6 +109,18 @@ public class actualizar extends AppCompatActivity {
             btnTerminacion.setEnabled(true);
         }
         actualizarArchivos();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            actualizarArchivos();
+        }else if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            actualizarArchivos();
+        }
     }
 
     public void actualizarArchivos() {
