@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.WorkManager;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 
 import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
 import com.giogen.agendabig.ObjetosYDaos.DaoRecordatorio;
+import com.giogen.agendabig.ObjetosYDaos.Recordatorio;
 import com.giogen.agendabig.R;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.giogen.agendabig.ObjetosYDaos.Ficha;
 import com.giogen.agendabig.ObjetosYDaos.FichaAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Principal extends AppCompatActivity {
 
@@ -111,8 +114,16 @@ public class Principal extends AppCompatActivity {
                                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                                 DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n))) ){
+                                    List<Recordatorio> recordatorios = new ArrayList<>();
+                                    recordatorios = daoRecordatorio.seleccionar(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
+                                    for (int i = 0; i< recordatorios.size();i++){
+
+                                        deleteNotify(recordatorios.get(i).getId()+"");
+                                    }
                                     daoRecordatorio.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)));
+
+
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
                                 ActualizarRecycler();
@@ -170,6 +181,12 @@ public class Principal extends AppCompatActivity {
                                 DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)))){
                                     daoArchivo.eliminarTodos(lista.get(recyclerView.getChildAdapterPosition(n)));
+                                    List<Recordatorio> recordatorios = new ArrayList<>();
+                                    recordatorios = daoRecordatorio.seleccionar(lista.get(recyclerView.getChildAdapterPosition(n)));
+
+                                    for (int i = 0; i< recordatorios.size();i++){
+                                        deleteNotify(recordatorios.get(i).getId()+"");
+                                    }
                                     daoRecordatorio.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)));
                                     Toast.makeText(getApplicationContext(),"Se elimino",Toast.LENGTH_LONG).show();
                                 }
@@ -190,5 +207,8 @@ public class Principal extends AppCompatActivity {
             }
         });
     }
+    private void deleteNotify(String tag){
+        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
 
+    }
 }

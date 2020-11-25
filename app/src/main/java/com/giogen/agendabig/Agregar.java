@@ -135,6 +135,7 @@ public class Agregar extends AppCompatActivity {
 
     }
 
+    //Cargamos los archivos cuando se cambia de lado la pantalla
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -146,7 +147,9 @@ public class Agregar extends AppCompatActivity {
            actualizarArchivos();
         }
     }
-
+/*
+* Metodo para guardar la nota o la tarea, con todos sus documentos, al igual con todas las notificacicones
+* */
     public void btnGuardarOnClick(View v) {
         try {
 
@@ -229,6 +232,11 @@ public class Agregar extends AppCompatActivity {
         }
     }
 
+
+    /*
+    * Metodo en el cual se crea un linearmanager para obtener los modos al igual se comienza nuestro
+    * recycleView con el adaptador que creamos. al igual se crea el evento de click largo
+    * */
     public void actualizarArchivos() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -261,6 +269,10 @@ public class Agregar extends AppCompatActivity {
         });
     }
 
+    /*
+    * Evento de click para nuestro boton de agregar archivos, en el se estaran agregando nuevos archivos
+    * y se daran las opciones de diferentes formas de agregar multimedia.
+    * */
     public void btnArchivosOnClick(View v) {
         final View vista = v;
         AlertDialog.Builder menu = new AlertDialog.Builder(v.getContext());
@@ -434,10 +446,7 @@ public class Agregar extends AppCompatActivity {
     }
 
 
-    private void deleteNotify(String tag){
-        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
-        Toast.makeText(this, "Para ver si se elimina", Toast.LENGTH_SHORT).show();
-    }
+
 
     private String generateKey(){
         return UUID.randomUUID().toString();
