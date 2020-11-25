@@ -24,8 +24,6 @@ public class mostrar extends AppCompatActivity {
     private ArrayList<Archivo> archivoArrayList;
     private TextView titulo;
     private TextView descripcion;
-    private RadioButton nota;
-    private RadioButton tarea;
     private TextView recordatorio;
     private String titulo1;
 
@@ -41,10 +39,6 @@ public class mostrar extends AppCompatActivity {
         //---------------------------------------------
         titulo=findViewById(R.id.txtTituloM);
         descripcion=findViewById(R.id.txtDescripcionM);
-        nota=findViewById(R.id.rdNotaM);
-        nota.setEnabled(false);
-        tarea=findViewById(R.id.rdTareaM);
-        tarea.setEnabled(false);
         recordatorio=findViewById(R.id.lblRecordatorioM);
         llenarCampos();
     }
@@ -57,15 +51,17 @@ public class mostrar extends AppCompatActivity {
         Toast.makeText(this,titulo1,Toast.LENGTH_SHORT).show();
         ficha=daoFicha.seleccionarFicha(titulo1);
         archivoArrayList=daoArchivo.seleccionarArchivos(ficha);
-        titulo.setText(ficha.getTitulo());
         descripcion.setText(ficha.getDescripcion());
         //Si lo que se guardo es una nota, se seleccionara el radiobuton de la nota
         if(ficha.getTipo().equals("nota")){
-            nota.setChecked(true);
+            titulo.setText(ficha.getTitulo());
             //Si lo que se guardo es una tarea, se seleccionara el radiobuton de la tarea
         }else if(ficha.getTipo().equals("tarea")){
-            tarea.setChecked(true);
-            recordatorio.setText(ficha.getFechaRecordatorio());
+            titulo.setText(ficha.getTitulo());
+            if (ficha.getFechaRecordatorio() !=""){
+                recordatorio.setText("Termina en: "+ficha.getFechaRecordatorio());
+            }
+
         }
         ArchivoAdapter adapter=new ArchivoAdapter(this,archivoArrayList);
         //recyclerView.setAdapter(adapter);
