@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
-import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
-import com.giogen.agendabig.mostrar;
+import com.giogen.agendabig.Modelos.Archivo;
+import com.giogen.agendabig.Modelos.ArchivoAdapter;
+import com.giogen.agendabig.Mostrar;
 import com.giogen.agendabig.R;
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class FragmentSelector extends Fragment {
                 int no=recyclerView.getChildAdapterPosition(v);
                 Archivo ar=lista.get(no);
 
-                ((mostrar)activity).mostrarDetalle(ar);
+                ((Mostrar)activity).mostrarDetalle(ar);
                 return true;
             }
         });

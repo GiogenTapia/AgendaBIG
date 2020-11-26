@@ -1,6 +1,6 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.Modelos;
 
-public class Ficha {
+public class Agenda {
     private String titulo;
     private String descripcion;
     private String tipo;
@@ -8,7 +8,7 @@ public class Ficha {
     private String fechaRecordatorio;
     private String estado;
 
-    public Ficha(String titulo, String descripcion, String tipo, String fechacreacion, String fechaRecordatorio, String estado) {
+    public Agenda(String titulo, String descripcion, String tipo, String fechacreacion, String fechaRecordatorio, String estado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.tipo = tipo;
@@ -16,6 +16,8 @@ public class Ficha {
         this.fechaRecordatorio = fechaRecordatorio;
         this.estado = estado;
     }
+
+
 
     public String getTitulo() {
         return titulo;

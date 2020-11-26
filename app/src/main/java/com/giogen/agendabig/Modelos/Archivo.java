@@ -1,4 +1,4 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.Modelos;
 
 public class Archivo {
     private int idArchivo;

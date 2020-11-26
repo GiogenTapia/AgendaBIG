@@ -21,22 +21,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
-import com.giogen.agendabig.ObjetosYDaos.DaoRecordatorio;
-import com.giogen.agendabig.ObjetosYDaos.Recordatorio;
-import com.giogen.agendabig.R;
+import com.giogen.agendabig.datos.DaoArchivo;
+import com.giogen.agendabig.datos.DaoRecordatorio;
+import com.giogen.agendabig.Modelos.Recordatorio;
+
 import android.widget.Toast;
 
-import com.giogen.agendabig.ObjetosYDaos.DaoFicha;
-import com.giogen.agendabig.ObjetosYDaos.Ficha;
-import com.giogen.agendabig.ObjetosYDaos.FichaAdapter;
+import com.giogen.agendabig.datos.DaoAgenda;
+import com.giogen.agendabig.Modelos.Agenda;
+import com.giogen.agendabig.Modelos.AgendaAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Principal extends AppCompatActivity {
 
-    private ArrayList<Ficha> lista=new ArrayList<>();
+    private ArrayList<Agenda> lista=new ArrayList<>();
     private RecyclerView recyclerView;
     private EditText txtBuscar;
     private GridLayoutManager layoutManager;
@@ -79,12 +79,12 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ActualizarRecycler(){
-        DaoFicha dao=new DaoFicha(this);
+        DaoAgenda dao=new DaoAgenda(this);
         lista=dao.SeleccionarTodos();
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        FichaAdapter adapter=new FichaAdapter(this,lista);
+        AgendaAdapter adapter=new AgendaAdapter(this,lista);
 
         recyclerView.setAdapter(adapter);
         adapter.setOnItemLongClickListener(new View.OnLongClickListener() {
@@ -93,24 +93,32 @@ public class Principal extends AppCompatActivity {
                 final View n=v;
                 AlertDialog.Builder menu=new AlertDialog.Builder(v.getContext());
                 Resources res=getResources();
-                CharSequence[] opciones= {res.getString(R.string.ver),res.getString(R.string.modificar),res.getString(R.string.eliminar),res.getString(R.string.marcar)};
+                String estado = "";
+                if (lista.get(recyclerView.getChildAdapterPosition(n)).getEstado().equalsIgnoreCase("false")){
+                    estado =  res.getString(R.string.marcar2);;
+                }else{
+                    estado =  res.getString(R.string.marcar);;
+                }
+
+
+                CharSequence[] opciones= {res.getString(R.string.ver),res.getString(R.string.modificar),res.getString(R.string.eliminar),estado};
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion){
                             case 0:
                                 Toast.makeText(getApplicationContext(),lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo(),Toast.LENGTH_LONG).show();
-                                Intent intent=new Intent(getApplicationContext(),mostrar.class);
+                                Intent intent=new Intent(getApplicationContext(), Mostrar.class);
                                 intent.putExtra("titulo",lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo());
                                 startActivity(intent);
                                 break;
                             case 1:
-                                Intent intent1=new Intent(getApplicationContext(),actualizar.class);
+                                Intent intent1=new Intent(getApplicationContext(), Actualizar.class);
                                 intent1.putExtra("titulo",lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo());
                                 startActivity(intent1);
                                 break;
                             case 2:
-                                DaoFicha daonuevo=new DaoFicha(getApplicationContext());
+                                DaoAgenda daonuevo=new DaoAgenda(getApplicationContext());
                                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                                 DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n))) ){
@@ -129,11 +137,25 @@ public class Principal extends AppCompatActivity {
                                 ActualizarRecycler();
                                 break;
                             case 3:
-                                DaoFicha daoAc=new DaoFicha(getApplicationContext());
-                                Ficha fichaA=lista.get(recyclerView.getChildAdapterPosition(n));
-                                fichaA.setEstado("false");
-                                daoAc.actualizar(fichaA);
-                                ActualizarRecycler();
+                                DaoAgenda daoAc=new DaoAgenda(getApplicationContext());
+                                Agenda agendaA =lista.get(recyclerView.getChildAdapterPosition(n));
+                                if (agendaA.getEstado().equalsIgnoreCase("false") && agendaA.getTipo().equalsIgnoreCase("tarea")){
+
+                                    agendaA.setEstado("true");
+                                    daoAc.actualizar(agendaA);
+                                    ActualizarRecycler();
+                                }else{
+                                    if (agendaA.getEstado().equalsIgnoreCase("true") && agendaA.getTipo().equalsIgnoreCase("tarea")){
+
+                                        agendaA.setEstado("false");
+                                        daoAc.actualizar(agendaA);
+                                        ActualizarRecycler();
+                                }else{
+                                        Toast.makeText(getApplicationContext(),"solo aplica para tareas",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+
                                 break;
                         }
                     }
@@ -148,27 +170,34 @@ public class Principal extends AppCompatActivity {
     }
 
     public void actualizarRecyclerBuscar(){
-        DaoFicha dao=new DaoFicha(this);
+        DaoAgenda dao=new DaoAgenda(this);
         lista=dao.SeleccionarTodos(txtBuscar.getText().toString());
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        FichaAdapter adapter=new FichaAdapter(this,lista);
+        AgendaAdapter adapter=new AgendaAdapter(this,lista);
 
         recyclerView.setAdapter(adapter);
         adapter.setOnItemLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 final View n=v;
+                Resources res=getResources();
                 AlertDialog.Builder menu=new AlertDialog.Builder(v.getContext());
-                CharSequence[] opciones= {"Ver","Modificar","Eliminar","Marcar como terminado"};
+                String estado = "";
+                if (lista.get(recyclerView.getChildAdapterPosition(n)).getEstado().equalsIgnoreCase("false")){
+                    estado = res.getString(R.string.marcar);
+                }else{
+                    estado =  res.getString(R.string.marcar2);
+                }
+                CharSequence[] opciones= {res.getString(R.string.ver),res.getString(R.string.modificar),res.getString(R.string.eliminar),estado};
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion){
                             case 0:
                                 //Toast.makeText(getApplicationContext(),lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo(),Toast.LENGTH_LONG).show();
-                                Intent intent=new Intent(getApplicationContext(),mostrar.class);
+                                Intent intent=new Intent(getApplicationContext(), Mostrar.class);
                                 intent.putExtra("titulo",lista.get(recyclerView.getChildAdapterPosition(n)).getTitulo());
                                 startActivity(intent);
                                 break;
@@ -176,7 +205,7 @@ public class Principal extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Modificar",Toast.LENGTH_LONG).show();
                                 break;
                             case 2:
-                                DaoFicha daonuevo=new DaoFicha(getApplicationContext());
+                                DaoAgenda daonuevo=new DaoAgenda(getApplicationContext());
                                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                                 DaoRecordatorio daoRecordatorio =  new DaoRecordatorio(getApplicationContext());
                                 if(daonuevo.eliminar(lista.get(recyclerView.getChildAdapterPosition(n)))){
@@ -193,11 +222,24 @@ public class Principal extends AppCompatActivity {
                                 ActualizarRecycler();
                                 break;
                             case 3:
-                                DaoFicha daoAc=new DaoFicha(getApplicationContext());
-                                Ficha fichaA=lista.get(recyclerView.getChildAdapterPosition(n));
-                                fichaA.setEstado("false");
-                                daoAc.actualizar(fichaA);
-                                ActualizarRecycler();
+                                DaoAgenda daoAc=new DaoAgenda(getApplicationContext());
+                                Agenda agendaA =lista.get(recyclerView.getChildAdapterPosition(n));
+                                if (agendaA.getEstado().equalsIgnoreCase("false") && agendaA.getTipo().equalsIgnoreCase("tarea")){
+
+                                    agendaA.setEstado("true");
+                                    daoAc.actualizar(agendaA);
+                                    ActualizarRecycler();
+                                }else{
+                                    if (agendaA.getEstado().equalsIgnoreCase("true") && agendaA.getTipo().equalsIgnoreCase("tarea")){
+
+                                        agendaA.setEstado("false");
+                                        daoAc.actualizar(agendaA);
+                                        ActualizarRecycler();
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),"solo aplica para tareas",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
                                 break;
                         }
                     }

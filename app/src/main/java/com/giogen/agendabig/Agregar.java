@@ -1,24 +1,16 @@
 package com.giogen.agendabig;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,7 +22,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,26 +30,22 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Data;
-import androidx.work.WorkManager;
 
-import com.giogen.agendabig.Notificacion.PlanificarAlarma;
 import com.giogen.agendabig.Notificacion.WorkManagerNotify;
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
-import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
-import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
-import com.giogen.agendabig.ObjetosYDaos.DaoFicha;
-import com.giogen.agendabig.ObjetosYDaos.DaoRecordatorio;
-import com.giogen.agendabig.ObjetosYDaos.Ficha;
-import com.giogen.agendabig.ObjetosYDaos.Recordatorio;
+import com.giogen.agendabig.Modelos.Archivo;
+import com.giogen.agendabig.Modelos.ArchivoAdapter;
+import com.giogen.agendabig.datos.DaoArchivo;
+import com.giogen.agendabig.datos.DaoAgenda;
+import com.giogen.agendabig.datos.DaoRecordatorio;
+import com.giogen.agendabig.Modelos.Agenda;
+import com.giogen.agendabig.Modelos.Recordatorio;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Agregar extends AppCompatActivity {
@@ -168,11 +155,11 @@ public class Agregar extends AppCompatActivity {
             String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
 
             if (tipo.equals("nota")) {
-                Ficha ficha = new Ficha(titulo, descripcion, tipo, fechaRegistro, "", "true");
-                DaoFicha dao = new DaoFicha(getApplicationContext());
+                Agenda agenda = new Agenda(titulo, descripcion, tipo, fechaRegistro, "", "true");
+                DaoAgenda dao = new DaoAgenda(getApplicationContext());
                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                 DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
-                if (dao.Insert(ficha) > 0) {
+                if (dao.Insert(agenda) > 0) {
                     Toast.makeText(this, "Se inserto", Toast.LENGTH_LONG).show();
                     if (daoArchivo.insertarVariosArchivos(lista)) {
                         Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
@@ -199,8 +186,8 @@ public class Agregar extends AppCompatActivity {
 
             } else if (tipo.equals("tarea")) {
 
-                Ficha tarea = new Ficha(titulo, descripcion, tipo, fechaRegistro, lblAlarma.getText().toString(), "true");
-                DaoFicha dao = new DaoFicha(getApplicationContext());
+                Agenda tarea = new Agenda(titulo, descripcion, tipo, fechaRegistro, lblAlarma.getText().toString(), "true");
+                DaoAgenda dao = new DaoAgenda(getApplicationContext());
                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                 DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
                 if (dao.Insert(tarea) > 0) {

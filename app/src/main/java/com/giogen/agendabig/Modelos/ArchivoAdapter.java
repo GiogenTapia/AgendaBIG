@@ -1,13 +1,11 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.Modelos;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import com.giogen.agendabig.R;
 
 import androidx.annotation.NonNull;

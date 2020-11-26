@@ -13,13 +13,13 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.giogen.agendabig.ObjetosYDaos.Ficha;
+import com.giogen.agendabig.Modelos.Agenda;
 import com.giogen.agendabig.Principal;
 import com.giogen.agendabig.R;
 
 
 public class PlanificarAlarma extends BroadcastReceiver {
-    Ficha ficha;
+    Agenda agenda;
     String titulo="";
 
 
@@ -63,7 +63,7 @@ public class PlanificarAlarma extends BroadcastReceiver {
 
 
 
-    public void setMensaje(Ficha ficha) {
-        this.ficha = ficha;
+    public void setMensaje(Agenda agenda) {
+        this.agenda = agenda;
     }
 }

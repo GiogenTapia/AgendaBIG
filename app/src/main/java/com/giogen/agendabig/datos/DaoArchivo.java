@@ -1,9 +1,13 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.datos;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.giogen.agendabig.Modelos.Archivo;
+import com.giogen.agendabig.Modelos.Agenda;
+
 import java.util.ArrayList;
 
 public class DaoArchivo {
@@ -39,9 +43,9 @@ public class DaoArchivo {
     }
 
     //METODO SELECCIONAR ARCHIVOS
-    public ArrayList<Archivo> seleccionarArchivos(Ficha ficha){
+    public ArrayList<Archivo> seleccionarArchivos(Agenda agenda){
         ArrayList<Archivo>lista=new ArrayList<>();
-        Cursor c=bd.query(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{ficha.getTitulo()},null,null,null);
+        Cursor c=bd.query(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{agenda.getTitulo()},null,null,null);
         Archivo ar=null;
         while(c.moveToNext()){
             ar=new Archivo(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4));
@@ -63,8 +67,8 @@ public class DaoArchivo {
 
 
     //METODO ELIMINAR FICHA
-    public boolean eliminarTodos(Ficha ficha){
-        int no=bd.delete(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{ficha.getTitulo()});
+    public boolean eliminarTodos(Agenda agenda){
+        int no=bd.delete(BaseDeDatos.ARCHIVO,BaseDeDatos.ARCHIVOCOLUMNS[4]+"=?",new String[]{agenda.getTitulo()});
         if(no>0){
             return true;
         }else{

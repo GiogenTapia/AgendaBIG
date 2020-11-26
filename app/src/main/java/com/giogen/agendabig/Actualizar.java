@@ -1,8 +1,6 @@
 package com.giogen.agendabig;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,15 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Data;
 import androidx.work.WorkManager;
 
-import com.giogen.agendabig.Notificacion.PlanificarAlarma;
 import com.giogen.agendabig.Notificacion.WorkManagerNotify;
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
-import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
-import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
-import com.giogen.agendabig.ObjetosYDaos.DaoFicha;
-import com.giogen.agendabig.ObjetosYDaos.DaoRecordatorio;
-import com.giogen.agendabig.ObjetosYDaos.Ficha;
-import com.giogen.agendabig.ObjetosYDaos.Recordatorio;
+import com.giogen.agendabig.Modelos.Archivo;
+import com.giogen.agendabig.Modelos.ArchivoAdapter;
+import com.giogen.agendabig.datos.DaoArchivo;
+import com.giogen.agendabig.datos.DaoAgenda;
+import com.giogen.agendabig.datos.DaoRecordatorio;
+import com.giogen.agendabig.Modelos.Agenda;
+import com.giogen.agendabig.Modelos.Recordatorio;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -48,8 +45,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class actualizar extends AppCompatActivity {
-    private Ficha ficha;
+public class Actualizar extends AppCompatActivity {
+    private Agenda agenda;
     private ArrayList<Archivo> lista;
     private ArrayList<Recordatorio> listaRecordatorio;
     private ArrayList<Recordatorio> recordatorios;
@@ -92,20 +89,20 @@ public class actualizar extends AppCompatActivity {
     //Metodo en el cual podemos obtener todos los datos de la ficha la cual se desea actualizar
     public void llenarCampos() {
         DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
-        DaoFicha daoFicha = new DaoFicha(getApplicationContext());
+        DaoAgenda daoAgenda = new DaoAgenda(getApplicationContext());
         DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
         Toast.makeText(this, titulo1, Toast.LENGTH_SHORT).show();
-        ficha = daoFicha.seleccionarFicha(titulo1);
-        lista = daoArchivo.seleccionarArchivos(ficha);
-        listaRecordatorio = daoRecordatorio.seleccionar(ficha);
-        titulo.setText(ficha.getTitulo());
-        descripcion.setText(ficha.getDescripcion());
-        if (ficha.getTipo().equals("nota")) {
+        agenda = daoAgenda.seleccionarFicha(titulo1);
+        lista = daoArchivo.seleccionarArchivos(agenda);
+        listaRecordatorio = daoRecordatorio.seleccionar(agenda);
+        titulo.setText(agenda.getTitulo());
+        descripcion.setText(agenda.getDescripcion());
+        if (agenda.getTipo().equals("nota")) {
             nota.setChecked(true);
             btnTerminacion.setEnabled(false);
-        } else if (ficha.getTipo().equals("tarea")) {
+        } else if (agenda.getTipo().equals("tarea")) {
             tarea.setChecked(true);
-            recordatorio.setText(ficha.getFechaRecordatorio());
+            recordatorio.setText(agenda.getFechaRecordatorio());
             btnTerminacion.setEnabled(true);
         }
         actualizarArchivos();
@@ -180,7 +177,7 @@ public class actualizar extends AppCompatActivity {
         Calendar fechaActual = Calendar.getInstance();
         Calendar fechaActual1 = Calendar.getInstance();
         final Recordatorio recordatorio = new Recordatorio();
-        recordatorio.setTitulo(ficha.getTitulo());
+        recordatorio.setTitulo(agenda.getTitulo());
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -238,11 +235,11 @@ public class actualizar extends AppCompatActivity {
             String fechaRegistro = fechaActual.get(Calendar.DAY_OF_MONTH) + "-" + fechaActual.get(Calendar.MONTH) + "-" + fechaActual.get(Calendar.YEAR);
 
             if (nota.isChecked()) {
-                Ficha ficha = new Ficha(title, desc, "nota", fechaRegistro, "", "true");
-                DaoFicha dao = new DaoFicha(getApplicationContext());
+                Agenda agenda = new Agenda(title, desc, "nota", fechaRegistro, "", "true");
+                DaoAgenda dao = new DaoAgenda(getApplicationContext());
                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                 DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
-                if (dao.actualizar(ficha)) {
+                if (dao.actualizar(agenda)) {
                         Toast.makeText(this, "Se inserto los archivos", Toast.LENGTH_LONG).show();
                         for (int i = 0; i < recordatorios.size(); i++) {
                             recordatorios.get(i).setTitulo(titulo.getText().toString());
@@ -260,8 +257,8 @@ public class actualizar extends AppCompatActivity {
                 }
 
             } else if (tarea.isChecked()) {
-                Ficha tarea = new Ficha(title, desc, "tarea", fechaRegistro, recordatorio.getText().toString(), "true");
-                DaoFicha dao = new DaoFicha(getApplicationContext());
+                Agenda tarea = new Agenda(title, desc, "tarea", fechaRegistro, recordatorio.getText().toString(), "true");
+                DaoAgenda dao = new DaoAgenda(getApplicationContext());
                 DaoArchivo daoArchivo = new DaoArchivo(getApplicationContext());
                 DaoRecordatorio daoRecordatorio = new DaoRecordatorio(getApplicationContext());
                 if (dao.actualizar(tarea)) {

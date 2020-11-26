@@ -1,9 +1,12 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.datos;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.giogen.agendabig.Modelos.Agenda;
+import com.giogen.agendabig.Modelos.Recordatorio;
 
 import java.util.ArrayList;
 
@@ -29,9 +32,9 @@ public class DaoRecordatorio {
     }
 
     //Obtenemos los recordatorios que se guardaron en la ficha
-    public ArrayList<Recordatorio> seleccionar(Ficha ficha){
+    public ArrayList<Recordatorio> seleccionar(Agenda agenda){
         ArrayList<Recordatorio>lista=new ArrayList<>();
-        Cursor c=bd.query(BaseDeDatos.RECORDATORIO,BaseDeDatos.RECORDATORIOCOLUMNS,BaseDeDatos.RECORDATORIOCOLUMNS[6]+"=?",new String[]{ficha.getTitulo()},null,null,null);
+        Cursor c=bd.query(BaseDeDatos.RECORDATORIO,BaseDeDatos.RECORDATORIOCOLUMNS,BaseDeDatos.RECORDATORIOCOLUMNS[6]+"=?",new String[]{agenda.getTitulo()},null,null,null);
         while(c.moveToNext()){
             lista.add(new Recordatorio(c.getInt(0),c.getInt(1),c.getInt(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getString(6)));
         }
@@ -39,8 +42,8 @@ public class DaoRecordatorio {
         return lista;
     }
 
-    public boolean eliminar(Ficha ficha){
-        int no=bd.delete(BaseDeDatos.RECORDATORIO,BaseDeDatos.RECORDATORIOCOLUMNS[6]+"=?",new String[]{ficha.getTitulo()+""});
+    public boolean eliminar(Agenda agenda){
+        int no=bd.delete(BaseDeDatos.RECORDATORIO,BaseDeDatos.RECORDATORIOCOLUMNS[6]+"=?",new String[]{agenda.getTitulo()+""});
         if(no>0){
             return true;
         }else{

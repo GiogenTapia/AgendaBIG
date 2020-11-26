@@ -29,4 +29,6 @@
     <string name="modificar" translatable="false">Actualizar</string>
     <string name="ver" translatable="false">Ver</string>
     <string name="marcar" translatable="false">Marcar como terminado</string>
+    <string name="marcar2" translatable="false">Cancelar completacion</string>
+
 </resources>

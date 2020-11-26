@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
+import com.giogen.agendabig.Modelos.Archivo;
 import com.giogen.agendabig.R;
 
 public class FragmentVideo extends Fragment {

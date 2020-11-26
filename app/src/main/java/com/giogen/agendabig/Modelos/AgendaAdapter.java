@@ -1,11 +1,13 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.Modelos;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.giogen.agendabig.R;
 
@@ -14,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
+public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Ficha> lista;
+    private ArrayList<Agenda> lista;
     private View.OnLongClickListener onLongClickListener;
 
-    public FichaAdapter(Context context, ArrayList<Ficha> lista){
+    public AgendaAdapter(Context context, ArrayList<Agenda> lista){
         this.context=context;
         this.lista=lista;
     }
@@ -31,7 +33,7 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_ficha,viewGroup,false);
+        View itemView= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_agenda,viewGroup,false);
         itemView.setOnLongClickListener(onLongClickListener);
         ViewHolder viewHolder=new ViewHolder(itemView);
         return viewHolder;
@@ -48,9 +50,10 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
             viewHolder.icono.setImageResource(R.drawable.tarea);
         }
         if(lista.get(i).getEstado().equals("true")){
-            viewHolder.estado.setChecked(false);
+            viewHolder.linearLayout.setBackgroundColor(Color.WHITE);
         }else if(lista.get(i).getEstado().equals("false")){
-            viewHolder.estado.setChecked(true);
+
+            viewHolder.linearLayout.setBackgroundColor(Color.YELLOW);
         }
     }
 
@@ -64,12 +67,14 @@ public class FichaAdapter extends RecyclerView.Adapter<FichaAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView titulo;
         ImageView icono;
-        CheckBox estado;
+        LinearLayout linearLayout;
+
         public ViewHolder(View item){
             super(item);
             titulo=(TextView)item.findViewById(R.id.lblTituloIcono);
             icono=(ImageView)item.findViewById(R.id.imgvwIcono);
-            estado=(CheckBox)item.findViewById(R.id.chckbxEstado);
+            linearLayout = item.findViewById(R.id.contenido);
+
         }
     }
 

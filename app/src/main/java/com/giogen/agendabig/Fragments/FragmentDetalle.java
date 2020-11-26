@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.giogen.agendabig.R;
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
+import com.giogen.agendabig.Modelos.Archivo;
 
 public class FragmentDetalle extends Fragment {
     private Archivo archivo;

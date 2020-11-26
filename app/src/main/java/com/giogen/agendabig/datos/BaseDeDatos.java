@@ -1,4 +1,4 @@
-package com.giogen.agendabig.ObjetosYDaos;
+package com.giogen.agendabig.datos;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

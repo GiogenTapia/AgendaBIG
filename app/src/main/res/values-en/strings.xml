@@ -28,4 +28,7 @@
     <string name="modificar" translatable="false">Edit</string>
     <string name="marcar" translatable="false">Check as finished</string>
     <string name="ver" translatable="false">see</string>
+    <string name="marcar2" translatable="false">Cancel completion</string>
+
+
 </resources>

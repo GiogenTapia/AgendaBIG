@@ -1,26 +1,24 @@
 package com.giogen.agendabig;
 import android.os.Bundle;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.giogen.agendabig.Fragments.FragmentAudio;
 import com.giogen.agendabig.Fragments.FragmentDetalle;
 import com.giogen.agendabig.Fragments.FragmentSelector;
 import com.giogen.agendabig.Fragments.FragmentVideo;
-import com.giogen.agendabig.ObjetosYDaos.Archivo;
-import com.giogen.agendabig.ObjetosYDaos.ArchivoAdapter;
-import com.giogen.agendabig.ObjetosYDaos.DaoArchivo;
-import com.giogen.agendabig.ObjetosYDaos.DaoFicha;
-import com.giogen.agendabig.ObjetosYDaos.Ficha;
+import com.giogen.agendabig.Modelos.Archivo;
+import com.giogen.agendabig.Modelos.ArchivoAdapter;
+import com.giogen.agendabig.datos.DaoArchivo;
+import com.giogen.agendabig.datos.DaoAgenda;
+import com.giogen.agendabig.Modelos.Agenda;
 
 import java.util.ArrayList;
-public class mostrar extends AppCompatActivity {
-    private Ficha ficha;
+public class Mostrar extends AppCompatActivity {
+    private Agenda agenda;
     private ArrayList<Archivo> archivoArrayList;
     private TextView titulo;
     private TextView descripcion;
@@ -47,19 +45,19 @@ public class mostrar extends AppCompatActivity {
     // anteriormente guardada para mostrarla
     public void llenarCampos(){
         DaoArchivo daoArchivo=new DaoArchivo(getApplicationContext());
-        DaoFicha daoFicha=new DaoFicha(getApplicationContext());
+        DaoAgenda daoAgenda =new DaoAgenda(getApplicationContext());
         Toast.makeText(this,titulo1,Toast.LENGTH_SHORT).show();
-        ficha=daoFicha.seleccionarFicha(titulo1);
-        archivoArrayList=daoArchivo.seleccionarArchivos(ficha);
-        descripcion.setText(ficha.getDescripcion());
+        agenda = daoAgenda.seleccionarFicha(titulo1);
+        archivoArrayList=daoArchivo.seleccionarArchivos(agenda);
+        descripcion.setText(agenda.getDescripcion());
         //Si lo que se guardo es una nota, se seleccionara el radiobuton de la nota
-        if(ficha.getTipo().equals("nota")){
-            titulo.setText(ficha.getTitulo());
+        if(agenda.getTipo().equals("nota")){
+            titulo.setText(agenda.getTitulo());
             //Si lo que se guardo es una tarea, se seleccionara el radiobuton de la tarea
-        }else if(ficha.getTipo().equals("tarea")){
-            titulo.setText(ficha.getTitulo());
-            if (ficha.getFechaRecordatorio() !=""){
-                recordatorio.setText("Termina en: "+ficha.getFechaRecordatorio());
+        }else if(agenda.getTipo().equals("tarea")){
+            titulo.setText(agenda.getTitulo());
+            if (agenda.getFechaRecordatorio() !=""){
+                recordatorio.setText("Termina en: "+ agenda.getFechaRecordatorio());
             }
 
         }

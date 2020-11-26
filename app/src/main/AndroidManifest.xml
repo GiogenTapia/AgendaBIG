@@ -29,10 +29,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".mostrar"
+        <activity android:name=".Mostrar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             />
-        <activity android:name=".actualizar"
+        <activity android:name=".Actualizar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             ></activity>
 
