@@ -10,15 +10,43 @@
         android:id="@+id/imgvwIcono"
         android:src="@drawable/ic_launcher_background"
         />
-
-    <TextView
-        android:id="@+id/lblTituloIcono"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_horizontal"
-        android:text="Item"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
-        android:textSize="20dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="9dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:id="@+id/lblTituloIcono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Item"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/lblFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Item"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

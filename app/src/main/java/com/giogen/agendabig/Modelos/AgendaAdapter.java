@@ -55,6 +55,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
 
             viewHolder.linearLayout.setBackgroundColor(Color.YELLOW);
         }
+
+        if (!lista.get(i).getFechaRecordatorio().equalsIgnoreCase("")){
+            viewHolder.fecha.setText("Termina: "+lista.get(i).getFechaRecordatorio());
+        }else {
+
+            viewHolder.fecha.setText("");
+        }
+
     }
 
     @Override
@@ -68,12 +76,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
         TextView titulo;
         ImageView icono;
         LinearLayout linearLayout;
+        TextView fecha;
 
         public ViewHolder(View item){
             super(item);
             titulo=(TextView)item.findViewById(R.id.lblTituloIcono);
             icono=(ImageView)item.findViewById(R.id.imgvwIcono);
             linearLayout = item.findViewById(R.id.contenido);
+            fecha= item.findViewById(R.id.lblFecha);
 
         }
     }
