@@ -27,12 +27,12 @@ public class DaoAgenda {
         cnt.put(BaseDeDatos.FICHACOLUMNS[4], agenda.getFechaRecordatorio());
         cnt.put(BaseDeDatos.FICHACOLUMNS[5], agenda.getEstado());
 
-        return  bd.insert(BaseDeDatos.FICHA,null,cnt);
+        return  bd.insert(BaseDeDatos.AGENDA,null,cnt);
     }
 
     //Metodo para eliminar una ficha, se debe eliminar todos los archivos que este contenga, y aque tiene una llave foranea
     public boolean eliminar(Agenda agenda){
-        int no1=bd.delete(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{agenda.getTitulo()});
+        int no1=bd.delete(BaseDeDatos.AGENDA,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{agenda.getTitulo()});
         if(no1>0){
             return true;
         }else{
@@ -43,7 +43,7 @@ public class DaoAgenda {
     //Metodo para seleccionar todos los archivos
     public ArrayList<Agenda> SeleccionarTodos(){
         ArrayList<Agenda>lista=new ArrayList<Agenda>();
-        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,null,null,null,null,null);
+        Cursor c=bd.query(BaseDeDatos.AGENDA,BaseDeDatos.FICHACOLUMNS,null,null,null,null,null);
         while(c.moveToNext()){
             lista.add(new Agenda(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
                     ,c.getString(4),c.getString(5)));
@@ -55,7 +55,7 @@ public class DaoAgenda {
     //Metodo para seleccionar los archivos por medio del titulo
     public ArrayList<Agenda>  SeleccionarTodos(String titulo){
         ArrayList<Agenda>lista=new ArrayList<Agenda>();
-        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,"titulo like '%"+titulo+"%'",null,null,null,null);
+        Cursor c=bd.query(BaseDeDatos.AGENDA,BaseDeDatos.FICHACOLUMNS,"titulo like '%"+titulo+"%'",null,null,null,null);
         while(c.moveToNext()){
             lista.add(new Agenda(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
                     ,c.getString(4),c.getString(5)));
@@ -65,7 +65,7 @@ public class DaoAgenda {
 
     //Metodo para seleccionar una ficha por medio del titulo
     public Agenda seleccionarFicha(String titulo){
-        Cursor c=bd.query(BaseDeDatos.FICHA,BaseDeDatos.FICHACOLUMNS,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{titulo},null,null,null);
+        Cursor c=bd.query(BaseDeDatos.AGENDA,BaseDeDatos.FICHACOLUMNS,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{titulo},null,null,null);
         Agenda fi=null;
         while(c.moveToNext()){
             fi=new Agenda(c.getString(0),c.getString(1),c.getString(2),c.getString(3)
@@ -81,7 +81,7 @@ public class DaoAgenda {
         cnt.put(BaseDeDatos.FICHACOLUMNS[3], agenda.getFechacreacion());
         cnt.put(BaseDeDatos.FICHACOLUMNS[4], agenda.getFechaRecordatorio());
         cnt.put(BaseDeDatos.FICHACOLUMNS[5], agenda.getEstado());
-        long no=bd.update(BaseDeDatos.FICHA,cnt,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{agenda.getTitulo()});
+        long no=bd.update(BaseDeDatos.AGENDA,cnt,BaseDeDatos.FICHACOLUMNS[0]+"=?",new String[]{agenda.getTitulo()});
         if(no>0){
             return true;
         }else{

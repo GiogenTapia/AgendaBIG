@@ -67,12 +67,12 @@
 
         <EditText
             android:id="@+id/txtDescripcionA"
-            android:layout_width="381dp"
-            android:layout_height="106dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="0dp"
+            android:layout_height="94dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center_horizontal"
             android:inputType="textMultiLine"
             android:textAlignment="center"
@@ -84,19 +84,21 @@
             android:id="@+id/rdgTipo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDescripcionA">
 
             <RadioButton
                 android:id="@+id/rdTareaA"
-                android:layout_width="match_parent"
+                android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:text="@string/rdTarea" />
 
             <RadioButton
                 android:id="@+id/rdNotaA"
-                android:layout_width="match_parent"
+                android:layout_width="158dp"
                 android:layout_height="wrap_content"
                 android:text="@string/rdNota" />
 
@@ -108,6 +110,7 @@
             android:layout_height="49dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:background="@color/colorPrimary"
@@ -170,12 +173,13 @@
             android:layout_height="100dp"
             android:layout_marginStart="154dp"
             android:layout_marginLeft="154dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="157dp"
             android:layout_marginRight="157dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnArchivos" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -183,21 +187,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="442dp" />
-
-        <Button
-            android:id="@+id/btnArchivos"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:background="@color/colorPrimary"
-            android:onClick="btnArchivosAOnClick"
-            android:text="@string/btnArchivos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcclcArchivoListaA"

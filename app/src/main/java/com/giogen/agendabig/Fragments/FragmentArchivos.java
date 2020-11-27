@@ -18,7 +18,7 @@ import com.giogen.agendabig.Mostrar;
 import com.giogen.agendabig.R;
 import java.util.ArrayList;
 
-public class FragmentSelector extends Fragment {
+public class FragmentArchivos extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Archivo>lista=new ArrayList<>();
     private Activity activity;

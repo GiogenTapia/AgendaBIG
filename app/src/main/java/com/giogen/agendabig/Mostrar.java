@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.giogen.agendabig.Fragments.FragmentAudio;
-import com.giogen.agendabig.Fragments.FragmentDetalle;
-import com.giogen.agendabig.Fragments.FragmentSelector;
+import com.giogen.agendabig.Fragments.FragmentImagen;
+import com.giogen.agendabig.Fragments.FragmentArchivos;
 import com.giogen.agendabig.Fragments.FragmentVideo;
 import com.giogen.agendabig.Modelos.Archivo;
 import com.giogen.agendabig.Modelos.ArchivoAdapter;
@@ -32,6 +32,7 @@ public class Mostrar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar);
 
+        //Recuperamos el titulo de la nota agregada
         Bundle bundle=getIntent().getExtras();
         titulo1=bundle.getString("titulo");
         //---------------------------------------------
@@ -64,7 +65,7 @@ public class Mostrar extends AppCompatActivity {
         ArchivoAdapter adapter=new ArchivoAdapter(this,archivoArrayList);
         //recyclerView.setAdapter(adapter);
         if(findViewById(R.id.contenedor)!=null&&(getSupportFragmentManager().findFragmentById(R.id.contenedor)==null)){
-            FragmentSelector primerFragment=new FragmentSelector();
+            FragmentArchivos primerFragment=new FragmentArchivos();
             primerFragment.setLista(archivoArrayList);
             primerFragment.setAdapter(adapter);
             getSupportFragmentManager().beginTransaction().add(R.id.contenedor,primerFragment).commit();
@@ -77,7 +78,7 @@ public class Mostrar extends AppCompatActivity {
     public void mostrarDetalle(Archivo archivo){
         //Si el elemento fue una imagen se comenzara a realizar un nuevo fragmento el cual  se encargara de visualizar una imagen
         if(archivo.getTipo().equals("imagen")){
-            FragmentDetalle detalle=new FragmentDetalle();
+            FragmentImagen detalle=new FragmentImagen();
             detalle.setArchivo(archivo);
             FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.contenedor,detalle);

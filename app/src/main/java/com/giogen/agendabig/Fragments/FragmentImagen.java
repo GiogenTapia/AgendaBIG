@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.giogen.agendabig.R;
 import com.giogen.agendabig.Modelos.Archivo;
 
-public class FragmentDetalle extends Fragment {
+public class FragmentImagen extends Fragment {
     private Archivo archivo;
     //WIDGETS PARA AGREGAR LA IMAGEN
     private ImageView imageView;
