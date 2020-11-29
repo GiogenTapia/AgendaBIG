@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Agregar">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="179dp"
+            android:layout_marginLeft="179dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="179dp"
+            android:layout_marginRight="179dp"
+            android:gravity="center_horizontal"
+            android:text="@string/lblTitulo"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/txtTitulo"
+
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="47dp"
+            android:layout_marginLeft="47dp"
+            android:layout_marginEnd="47dp"
+            android:layout_marginRight="47dp"
+            android:gravity="center_horizontal"
+            android:inputType="text"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="238dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="86dp"
+            android:layout_marginLeft="86dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="87dp"
+            android:layout_marginRight="87dp"
+            android:gravity="center_horizontal"
+            android:text="@string/lblDescripcion"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
+
+        <EditText
+            android:id="@+id/txtDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_horizontal"
+            android:inputType="textMultiLine"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <RadioGroup
+            android:id="@+id/rdgTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescripcion">
+
+            <RadioButton
+                android:id="@+id/rdTarea"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:text="@string/rdTarea" />
+
+            <RadioButton
+                android:id="@+id/rdNota"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:text="@string/rdNota" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnAgregarAlarma"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@color/colorPrimary"
+            android:onClick="btnAgregarAlarmaOnClick"
+            android:text="@string/terminacion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rdgTipo" />
+
+        <TextView
+            android:id="@+id/lblRecordatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAgregarAlarma" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="47dp"
+            android:layout_marginRight="47dp"
+            android:background="@color/colorPrimary"
+            android:onClick="AgregarRecordatorio"
+            android:text="@string/agregarRecordatorio"
+            app:layout_constraintEnd_toStartOf="@+id/btnVerRecordatorios"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblRecordatorio" />
+
+        <Button
+            android:id="@+id/btnVerRecordatorios"
+            android:layout_width="178dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/colorPrimary"
+            android:onClick="MostarRecordatorios"
+            android:text="@string/verRecordatorios"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblRecordatorio" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/lblArchivos"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <ImageView
+            android:id="@+id/Imagen"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="154dp"
+            android:layout_marginLeft="154dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="157dp"
+            android:layout_marginRight="157dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="442dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcclcArchivoLista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="89dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="57dp"
+            android:layout_marginLeft="57dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="59dp"
+            android:layout_marginRight="59dp"
+            android:background="@drawable/guardar"
+            android:onClick="btnGuardarOnClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rcclcArchivoLista" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
