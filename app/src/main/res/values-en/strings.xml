@@ -29,6 +29,8 @@
     <string name="marcar" translatable="false">Check as finished</string>
     <string name="ver" translatable="false">see</string>
     <string name="marcar2" translatable="false">Cancel completion</string>
+    <string name="agregar_multimedia">Add multimedia</string>
+    <string name="termina_en">Ends in:</string>
 
 
 </resources>

@@ -30,5 +30,7 @@
     <string name="ver" translatable="false">Ver</string>
     <string name="marcar" translatable="false">Marcar como terminado</string>
     <string name="marcar2" translatable="false">Cancelar completacion</string>
+    <string name="agregar_multimedia" translatable="false">Agregar Multimedia</string>
+    <string name="termina_en" translatable="false">Termina en:</string>
 
 </resources>

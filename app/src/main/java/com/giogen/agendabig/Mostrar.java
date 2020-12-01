@@ -1,4 +1,5 @@
 package com.giogen.agendabig;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,9 @@ public class Mostrar extends AppCompatActivity {
         }else if(agenda.getTipo().equals("tarea")){
             titulo.setText(agenda.getTitulo());
             if (agenda.getFechaRecordatorio() !=""){
-                recordatorio.setText("Termina en: "+ agenda.getFechaRecordatorio());
+                Resources res = getResources();
+                String vr= res.getString(R.string.termina_en);
+                recordatorio.setText(vr+" "+ agenda.getFechaRecordatorio());
             }
 
         }
