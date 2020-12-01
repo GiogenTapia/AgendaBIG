@@ -117,7 +117,7 @@ public class Agregar extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                lblAlarma.setText(dayOfMonth + "-" + month + "-" + year);
+                lblAlarma.setText(dayOfMonth + "-" + (month+1) + "-" + year);
 
             }
         }, fechaActual.get(Calendar.YEAR), fechaActual.get(Calendar.MONTH), fechaActual.get(Calendar.DAY_OF_MONTH));
