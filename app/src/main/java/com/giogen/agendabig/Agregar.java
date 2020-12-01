@@ -231,6 +231,16 @@ public class Agregar extends AppCompatActivity {
                         }
 
                     }
+                    if(tarea.getFechaRecordatorio()!=""){
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:m");
+                        Date date = new Date();
+                        date = simpleDateFormat.parse(tarea.getFechaRecordatorio());
+                        Date justNow = new Date();
+                        long alertTime = date.getTime() - justNow.getTime();
+                        String key = generateKey()+"";
+                        Data data = saveData("Tiempo agotado",tarea.getTitulo(),(int)Math.random()*1000);
+                        WorkManagerNotify.saveNotification(alertTime,data, key);
+                    }
                 }
             }
             Intent intent = new Intent(getApplicationContext(), Principal.class);
